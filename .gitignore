@@ -171,3 +171,6 @@ package-lock.json
 
 # fasthtml
 .sesskey
+
+# pipreqs
+gen_requirements.bat

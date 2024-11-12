@@ -2,7 +2,7 @@
 
 ## Packages
 * [Python](https://www.python.org/) >= 3.10.12
-* [FastHTML](https://fastht.ml) >= 0.6.13
+* [FastHTML](https://fastht.ml) >= 0.6.9
   * `pip install python-fasthtml`
 
 ## Deployment
