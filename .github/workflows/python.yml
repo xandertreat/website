@@ -39,5 +39,6 @@ jobs:
       run: |
         flake8 --ignore=F405 $(git ls-files '*.py')
     - name: Run application
+      timeout-minutes: 0.167
       run: |
         python3 main.py
