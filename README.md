@@ -6,4 +6,4 @@
   * `pip install python-fasthtml`
 
 ## Deployment
-Run 'main.py', then connect to '[local](http://localhost:5001)' for the web server
+Run 'main.py', then connect to your opened [localhost](http://localhost:5001) for the web server
