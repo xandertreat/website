@@ -1,4 +1,4 @@
-from fasthtml.common import *
+from fasthtml.common import * # noqa
 
 description = 'FTAC Utility'
 

@@ -1,4 +1,4 @@
-from fasthtml.common import *
+from fasthtml.common import Div, Span
 
 def get():
     return Div()(
