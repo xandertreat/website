@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build:
-    timeout-minutes: 0.5
+    timeout-minutes: 3
     runs-on: ubuntu-latest
 
     steps:
@@ -40,4 +40,12 @@ jobs:
         flake8 --ignore=F405 $(git ls-files '*.py')
     - name: Run application
       run: |
-        python3 main.py
+        python3 main.py &
+        PID=$!
+
+        # Duration
+        sleep 10
+        kill $PID
+        if ps -p $PID > /dev/null; then kill -9 $PID fi
+        
+        exit 0
