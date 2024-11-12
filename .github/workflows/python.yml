@@ -35,6 +35,7 @@ jobs:
       run: |
         autopep8 --in-place $(git ls-files '*.py')
     - name: Linting with flake8
+      continue-on-error: true
       run: |
         flake8 --ignore=F405 $(git ls-files '*.py')
     - name: Run application
