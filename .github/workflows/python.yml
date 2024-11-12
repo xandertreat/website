@@ -46,6 +46,8 @@ jobs:
         # Duration
         sleep 10
         kill $PID
-        if ps -p $PID > /dev/null; then kill -9 $PID fi
+        if ps -p $PID > /dev/null; then 
+          kill -9 $PID 
+        fi
         
         exit 0
