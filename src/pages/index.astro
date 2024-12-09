@@ -1,0 +1,39 @@
+---
+// Layout
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Components
+import Icon from '@xtreat/astro-iconify';
+import Header from '../components/Header.astro';
+import Links from '../components/Links.astro';
+
+// Islands
+import Card from '../components/Card.astro';
+
+// Styling
+const icon_class = "size-full";
+---
+
+<BaseLayout>
+	<Header />
+	<Links />
+	<Card name='Languages' outerColor='bg-blue-600' innerColor='bg-blue-500' client:visible>
+		<span class="loading loading-dots loading-xs" slot="fallback"/>
+		<div class="tooltip tooltip-bottom size-20"
+			data-tip="C"
+		>
+		<Icon class={icon_class} icon='logos:c' />
+		<Icon class={icon_class} icon='logos:c+' />
+		</div>
+	</Card>
+</BaseLayout>
+
+<script>
+    const cards : HTMLCollectionOf<Element> = document.getElementsByClassName('remove-grayscale');
+    for(let element of cards){
+        element.addEventListener('mouseenter', (e) => {
+            element.classList.remove('grayscale');
+            element.parentElement?.classList.remove('grayscale');
+        })
+    }
+</script>

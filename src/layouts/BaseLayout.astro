@@ -1,0 +1,41 @@
+---
+// Styling
+import '../styles/fonts.css';
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Xander Treat</title>
+	</head>
+	<body>
+		<div class="anim-bg-gradient size-full">
+			<slot />
+		</div>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.anim-bg-gradient {
+		background: linear-gradient(to top, black, dimgray, gray, darkgray, silver, lightgray, gainsboro, whitesmoke, white);
+		background-size: 100% 800%;
+
+		animation: bg-gradient-anim 300s linear alternate;
+	}
+
+	@keyframes bg-gradient-anim {
+		0% {background-position:0% 0%}
+		50% {background-position:0% 100%}
+		100% {background-position:0% 0%}
+	}
+</style>

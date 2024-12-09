@@ -1,0 +1,23 @@
+---
+interface Props {
+    name : string
+    outerColor : string
+    innerColor : string
+}
+
+const {name, outerColor, innerColor, ...attrs} = Astro.props;
+---
+
+<div
+    class="group grayscale h-1/4 flex justify-center items-center transition-all duration-300"
+    {...attrs}
+>
+    <div class=`remove-grayscale card items-center text-center w-1/2 h-full ${outerColor} text-gray-50 p-1.5`>
+    <div class=`card items-center text-center size-full ${innerColor} text-gray-50 p-1.5`>
+        <h1 class="cursor-default font-parkinsans font-extralight text-xl mb-1.5">{name}</h1>
+        <div class="flex flex-row items-center justify-center gap-3 size-full">
+            <slot />
+        </div>
+    </div>
+    </div>
+</div>
