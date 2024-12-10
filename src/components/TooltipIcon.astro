@@ -1,0 +1,22 @@
+---
+// Imports
+import Icon from '@xtreat/astro-iconify';
+import type { IconifySpecifierFormat }  from '@xtreat/astro-iconify/types';
+
+// Props
+interface Props {
+    icon : IconifySpecifierFormat
+    tooltip? : string | ""
+    tailwind? : string | ""
+}
+const {icon, tooltip, tailwind, ...attrs} = Astro.props;
+---
+
+<div
+    class=`tooltip tooltip-bottom h-2/3 w-max transition-all duration-300 hover:mx-1 hover:scale-110 ${tailwind}`
+    data-tip={tooltip}
+    {...attrs}
+>
+     <Icon class="size-full" icon={icon} />
+</div>
+

@@ -3,37 +3,54 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 // Components
-import Icon from '@xtreat/astro-iconify';
+import Card from '../components/Card.astro';
+import TooltipIcon from '../components/TooltipIcon.astro';
 import Header from '../components/Header.astro';
 import Links from '../components/Links.astro';
-
-// Islands
-import Card from '../components/Card.astro';
-
-// Styling
-const icon_class = "size-full";
+import Eraser from '../components/Eraser.astro';
+import Paintbrush from '../components/Paintbrush.astro';
 ---
 
 <BaseLayout>
+	<Paintbrush />
+	<Eraser />
 	<Header />
 	<Links />
-	<Card name='Languages' outerColor='bg-blue-600' innerColor='bg-blue-500' client:visible>
-		<span class="loading loading-dots loading-xs" slot="fallback"/>
-		<div class="tooltip tooltip-bottom size-20"
-			data-tip="C"
-		>
-		<Icon class={icon_class} icon='logos:c' />
-		<Icon class={icon_class} icon='logos:c+' />
-		</div>
-	</Card>
+	<div class="overflow-hidden h-2/3 flex flex-col gap-10">
+		<Card name='Web' outerColor='bg-yellow-600' innerColor='bg-yellow-500'>
+			<TooltipIcon tooltip='HTML' icon="logos:html-5" />
+			<TooltipIcon tooltip='CSS' icon="logos:css-3" />
+			<TooltipIcon tooltip='JavaScript' icon="logos:javascript" />
+			<TooltipIcon tooltip='TypeScript' icon="logos:typescript-icon" />
+			<TooltipIcon tooltip='NodeJS' icon="logos:nodejs" />
+			<TooltipIcon tooltip='Deno' icon="logos:deno" />
+		</Card>
+		<Card name='Languages' outerColor='bg-blue-600' innerColor='bg-blue-500'>
+			<TooltipIcon tooltip='C#' icon="logos:c-sharp" />
+			<TooltipIcon tooltip='C' icon="logos:c" />
+			<TooltipIcon tooltip='C++' icon="logos:c-plusplus" />
+			<TooltipIcon tooltip='Java' icon="logos:java" />
+			<TooltipIcon tooltip='Python' icon="logos:python" />
+			<TooltipIcon tooltip='Lua' icon="logos:lua" />
+		</Card>
+		<Card name='Frameworks' outerColor='bg-gray-600' innerColor='bg-gray-500'>
+			<TooltipIcon tooltip='Vite' icon="logos:vitejs" />
+			<TooltipIcon tooltip='Astro' icon="logos:astro-icon" />
+			<TooltipIcon tooltip='Fresh' icon="logos:fresh" />
+			<TooltipIcon tooltip='React' icon="logos:react" />
+			<TooltipIcon tooltip='Preact' icon="logos:preact" />
+		</Card>
+		<Card name='Libraries' outerColor='bg-gray-600' innerColor='bg-gray-500'>
+			<TooltipIcon tooltip='MySQL' icon="logos:mysql-icon" />
+			<TooltipIcon tooltip='SQLite' icon="devicon:sqlite" />
+			<TooltipIcon tooltip='Drizzle ORM' icon="lineicons:drizzle" tailwind="text-blue-300"/>
+			<TooltipIcon tooltip='Auth.js' icon="mdi:shield-key"  tailwind="text-blue-300"/>
+		</Card>
+		<Card name='Tools' outerColor='bg-gray-600' innerColor='bg-gray-500'>
+			<TooltipIcon tooltip='Visual Studio Code' icon="logos:visual-studio-code" />
+			<TooltipIcon tooltip='Slack' icon="logos:slack-icon" />
+			<TooltipIcon tooltip='Git' icon="logos:git-icon" />
+			<TooltipIcon tooltip='Taiga' icon="logos:taiga" />
+		</Card>
+	</div>
 </BaseLayout>
-
-<script>
-    const cards : HTMLCollectionOf<Element> = document.getElementsByClassName('remove-grayscale');
-    for(let element of cards){
-        element.addEventListener('mouseenter', (e) => {
-            element.classList.remove('grayscale');
-            element.parentElement?.classList.remove('grayscale');
-        })
-    }
-</script>

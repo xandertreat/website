@@ -1,19 +1,19 @@
 ---
 import Icon from '@xtreat/astro-iconify';
 
-const link_class = "pointer-events-auto size-10 tooltip tooltip-bottom text-white tooltip-gray-500 grayscale remove-grayscale transition-all duration-300 hover:mx-1 hover:-translate-y-1 hover:scale-125 active:scale-100 active:[--tooltip-color:#00000000] active:[--tooltip-text-color:#00000000]";
+const link_class = "pointer-events-auto cursor-none size-10 tooltip tooltip-bottom text-white tooltip-gray-500 grayscale remove-grayscale transition-all duration-300 hover:mx-1 hover:-translate-y-1 hover:scale-125 active:scale-100 active:[--tooltip-color:#00000000] active:[--tooltip-text-color:#00000000]";
 const icon_class = "size-full";
 ---
 
-<div class="grid grid-flow-col justify-center items-center gap-5 mb-14">
+<div class="grid grid-flow-col justify-center items-center gap-5 mb-12">
     <a class={link_class + " hover:translate-y-0"}
        target="_blank"
        data-tip="Resume"
        href="https://www.xtreat.dev/resume.pdf"
        >
-        <Icon 
+        <Icon
             icon="mdi:resume"
-            class={icon_class + " *:fill-yellow-200"}
+            class={icon_class + " *:fill-yellow-800"}
         />
     </a>
     <a class={link_class}

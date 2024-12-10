@@ -1,0 +1,62 @@
+---
+// Components
+import Icon from "@xtreat/astro-iconify"
+
+// Islands
+import { motion } from "motion/react"
+---
+<motion.button
+    className="z-50 absolute bottom-5 right-5 size-16 disabled:pointer-events-none enabled:text-pink-400 disabled:text-gray-900"
+    id="motion-eraser"
+    whileHover={{ scale: 1.1, rotate: -5, cursor:"none"}}
+    whileTap={{ scale: 0.9, rotate: -20, cursor:"none" }}
+    whileDrag={{ scale: 0.9, rotate: -20, cursor:"none" }}
+    dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
+    dragElastic={1}
+    drag
+    disabled
+    client:only="react"
+>
+    <Icon class="size-full" icon="svg-spinners:pulse-rings-2" slot="fallback" />
+    <Icon class="size-full" icon="fe:eraser" />
+</motion.button>
+
+<script>
+import { $coloredElements } from '../scripts/stores/coloredElements.ts';
+import eraserSFX from '../assets/sound/eraser.wav';
+const audio = new Audio(eraserSFX);
+audio.volume = 0.5;
+
+async function disableEraser() {
+    await new Promise((r) => setTimeout(r, 150));
+    if($coloredElements.get() <= 0)
+        found.setAttribute('disabled', '');
+}
+
+const handleErasing = (event : Event) => {
+    const canErase : Element[] = document.elementsFromPoint(event.clientX, event.clientY);
+    canErase?.forEach((element : Element) => {
+        if(!element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
+            element.classList.add('grayscale');
+            audio.play();
+            const newVal = $coloredElements.get() - 1;
+            $coloredElements.set(newVal >= 0 ? newVal : 0);
+            disableEraser();
+        }
+    });
+};
+
+let found : Element;
+const interval = setInterval(() => {
+    const eraser = document.querySelector('#motion-eraser');
+    eraser?.addEventListener('mousemove', handleErasing);
+    if(eraser) {found = eraser; clearInterval(interval);}
+}, 200)
+
+const listener = $coloredElements.listen((cur) => {
+    if(cur > 0){
+        found?.removeAttribute('disabled');
+    }
+});
+
+</script>
