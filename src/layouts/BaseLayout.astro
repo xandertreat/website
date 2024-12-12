@@ -1,6 +1,10 @@
 ---
 // Styling
 import '../styles/fonts.css';
+
+// Islands
+import Confetti from '../components/islands/Confetti.tsx';
+import Background from '../components/Background.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -11,22 +15,9 @@ import '../styles/fonts.css';
 		<meta name="generator" content={Astro.generator} />
 		<title>Xander Treat</title>
 	</head>
-	<body class="absolute inset-0 overflow-hidden anim-bg-gradient bg-cover bg-center bg-no-repeat size-full">
+	<body class="overflow-hidden">
+		<Background />
 		<slot />
+		<Confetti client:only="react" />
 	</body>
 </html>
-
-<style>
-	.anim-bg-gradient {
-		background-image: linear-gradient(to top, black, dimgray, gray, darkgray, silver, lightgray, gainsboro, whitesmoke, white);
-		background-size: 100% 800%;
-
-		animation: bg-gradient-anim 600s linear alternate;
-	}
-
-	@keyframes bg-gradient-anim {
-		0% {background-position:0% 0%}
-		50% {background-position:0% 100%}
-		100% {background-position:0% 0%}
-	}
-</style>

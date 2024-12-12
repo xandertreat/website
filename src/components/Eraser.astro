@@ -4,10 +4,13 @@ import Icon from "@xtreat/astro-iconify"
 
 // Islands
 import { motion } from "motion/react"
+import { toolDiff } from '../json/animationConfig.json' assert { type: 'json' };
 ---
 <motion.button
-    className="z-50 absolute bottom-5 right-5 size-16 disabled:pointer-events-none enabled:text-pink-400 disabled:text-gray-900"
+    className="z-50 absolute bottom-5 right-5 size-16 disabled:pointer-events-none disabled:cursor-none transition-colors duration-300 text-pink-400 disabled:text-black"
     id="motion-eraser"
+    initial={{ x: 64, opacity: 0}}
+    animate={{transition: {type: "spring", ease: "easeOut", delay: toolDiff, duration: 0.5}, x: 0, opacity: 1}}
     whileHover={{ scale: 1.1, rotate: -5, cursor:"none"}}
     whileTap={{ scale: 0.9, rotate: -20, cursor:"none" }}
     whileDrag={{ scale: 0.9, rotate: -20, cursor:"none" }}
@@ -23,14 +26,22 @@ import { motion } from "motion/react"
 
 <script>
 import { $coloredElements } from '../scripts/stores/coloredElements.ts';
-import eraserSFX from '../assets/sound/eraser.wav';
+import eraserSFX from '../assets/sound/eraser.mp3';
 const audio = new Audio(eraserSFX);
 audio.volume = 0.5;
 
+const mouseUpEvent = new MouseEvent('mouseup', {
+  bubbles: true,
+  cancelable: true,
+  view: window
+});
+
 async function disableEraser() {
     await new Promise((r) => setTimeout(r, 150));
-    if($coloredElements.get() <= 0)
+    if($coloredElements.get() <= 0){
         found.setAttribute('disabled', '');
+        found.dispatchEvent(mouseUpEvent);
+    }
 }
 
 const handleErasing = (event : Event) => {

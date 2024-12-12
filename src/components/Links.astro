@@ -1,50 +1,85 @@
 ---
 import Icon from '@xtreat/astro-iconify';
 
-const link_class = "pointer-events-auto cursor-none size-10 tooltip tooltip-bottom text-white tooltip-gray-500 grayscale remove-grayscale transition-all duration-300 hover:mx-1 hover:-translate-y-1 hover:scale-125 active:scale-100 active:[--tooltip-color:#00000000] active:[--tooltip-text-color:#00000000]";
-const icon_class = "size-full";
+const wrapperClass = "portfolioLinkWrapper size-10 transition-all duration-300 grayscale remove-grayscale hover:scale-110 hover:mx-1 hover:-translate-y-0.5 active:scale-100";
+const linkClass = "portfolioLink cursor-none opacity-0 size-full tooltip tooltip-bottom tooltip-gray-500 active:[--tooltip-color:#00000000] active:[--tooltip-text-color:#00000000]";
+const iconClass = "size-full";
 ---
 
-<div class="grid grid-flow-col justify-center items-center gap-5 mb-12">
-    <a class={link_class + " hover:translate-y-0"}
-       target="_blank"
-       data-tip="Resume"
-       href="https://www.xtreat.dev/resume.pdf"
-       >
-        <Icon
-            icon="mdi:resume"
-            class={icon_class + " *:fill-yellow-800"}
-        />
-    </a>
-    <a class={link_class}
-       target="_blank"
-       data-tip="GitHub"
-       href="https://github.com/xandertreat">
-        <Icon icon="logos:github-icon"
-        class={icon_class + " *:fill-purple-700"}
-        />
-    </a>
-    <a class={link_class}
-       target="_blank"
-       data-tip="NPM"
-       href="https://www.npmjs.com/~xtreat">
-        <Icon icon="logos:npm-icon" 
-        class={icon_class + ""}/>
-    </a>
-    <a class={link_class}
-       target="_blank"
-       data-tip="LinkedIn"
-       href="https://www.npmjs.com/~xtreat">
-        <Icon 
-            icon="logos:linkedin-icon"
-            class={icon_class}
-        />
-    </a>
-    <a class={link_class + " hover:text-gray-50"}
-       target="_blank"
-       data-tip="X"
-       href="https://x.com/XanderTreat">
-        <Icon icon="logos:x" 
-        class={icon_class}/>
-    </a>
+<div class="grid grid-flow-col justify-center items-center gap-5 mb-12" >
+    <div class={wrapperClass}>
+        <a class={linkClass + " hover:translate-y-0"}
+        target="_blank"
+        data-tip="Resume"
+        href="lniked in link here"
+        draggable="false"
+        >
+            <Icon
+                icon="mdi:resume"
+                class={iconClass + " *:fill-yellow-800"}
+            />
+        </a>
+    </div>
+    <div class={wrapperClass}>
+        <a class={linkClass}
+        target="_blank"
+        data-tip="GitHub"
+        href="https://github.com/xandertreat"
+        draggable="false"
+        >
+            <Icon 
+                icon="logos:github-icon"
+                class={iconClass + " *:fill-purple-700"}
+            />
+        </a>
+    </div>
+    <div class={wrapperClass}>
+        <a class={linkClass}
+        target="_blank"
+        data-tip="NPM"
+        href="https://www.npmjs.com/~xtreat"
+        draggable="false"
+        >
+            <Icon 
+                icon="logos:npm-icon"
+                class={iconClass + ""}
+            />
+        </a>
+    </div>
+    <div class={wrapperClass}>
+        <a class={linkClass}
+        target="_blank"
+        data-tip="LinkedIn"
+        href="https://www.linkedin.com/in/xandertreat/"
+        draggable="false"
+        >
+            <Icon
+                icon="logos:linkedin-icon"
+                class={iconClass}
+            />
+        </a>
+    </div>
+    <div class="portfolioLinkWrapper size-10 transition-all duration-300 hover:scale-110 hover:mx-1 hover:-translate-y-0.5 active:scale-100">
+        <a class={"portfolioLink cursor-none opacity-0 size-full tooltip tooltip-bottom tooltip-gray-500 active:[--tooltip-color:#00000000] active:[--tooltip-text-color:#00000000]"}
+        target="_blank"
+        data-tip="X"
+        href="https://x.com/XanderTreat"
+        draggable="false"
+        >
+            <Icon
+                icon="logos:x"
+                class={iconClass}
+            />
+        </a>
+    </div>
 </div>
+
+<script>
+    import {animate, stagger} from 'motion';
+    import { linksDiff } from '../json/animationConfig.json' assert { type: 'json' };
+
+    const initialDelay = setInterval( () => {
+        animate('.portfolioLink', {opacity: 1, y: -10}, {delay: stagger(0.3)});
+        clearInterval(initialDelay);
+    }, linksDiff * 1000);
+</script>

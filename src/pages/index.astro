@@ -8,12 +8,10 @@ import TooltipIcon from '../components/TooltipIcon.astro';
 import Header from '../components/Header.astro';
 import Links from '../components/Links.astro';
 import Eraser from '../components/Eraser.astro';
-import Paintbrush from '../components/Paintbrush.astro';
+import Crayon from '../components/Crayon.astro';
 ---
 
 <BaseLayout>
-	<Paintbrush />
-	<Eraser />
 	<Header />
 	<Links />
 	<div class="overflow-hidden h-2/3 flex flex-col gap-10">
@@ -53,4 +51,6 @@ import Paintbrush from '../components/Paintbrush.astro';
 			<TooltipIcon tooltip='Taiga' icon="logos:taiga" />
 		</Card>
 	</div>
+	<Crayon />
+	<Eraser />
 </BaseLayout>

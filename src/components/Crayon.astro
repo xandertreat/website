@@ -1,0 +1,139 @@
+---
+// Components
+import Icon from "@xtreat/astro-iconify"
+import { motion } from "motion/react"
+import { toolDiff } from '../json/animationConfig.json' assert { type: 'json' };
+---
+<motion.button
+    className="z-50 absolute bottom-5 left-5 size-16 transition-colors duration-300 disabled:grayscale disabled:pointer-events-none"
+    id="motion-crayon"
+    initial={{ x: -64, opacity: 0, filter: "grayscale(1)"}}
+    animate={{transition: {type: "spring", ease: "easeOut", delay: toolDiff, duration: 0.5}, x: 0, opacity: 1,  filter: "" }}
+    whileHover={{ scale: 1.1, cursor: 'none'}}
+    whileTap={{ scale: 0.9, rotate: 25, cursor: 'none'}}
+    whileDrag={{ scale: 0.9, rotate: 25, cursor: 'none' }}
+    drag dragElastic={1} dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
+    client:only="react"
+>
+    <Icon class="size-full" icon="svg-spinners:pulse-rings-2" slot="fallback" />
+    <h1 class="size-full absolute -top-16 font-parkinsans font-semibold opacity-0 text-green-400" id="crayon-label"> Drag me! </h1>
+    <Icon class="size-full -rotate-45" flip="horizontal,vertical" icon="emojione:crayon" id="crayon-icon"/>
+</motion.button>
+
+<script>
+import { $coloredElements, $maxColoredElements } from '../scripts/stores/coloredElements.ts';
+import { toolDiff } from '../json/animationConfig.json' assert { type: 'json' };
+import { animate } from "motion"
+import crayonSFX from '../assets/sound/crayon.mp3';
+const audio = new Audio(crayonSFX);
+audio.volume = 0.5;
+$maxColoredElements.set(document.querySelectorAll('.remove-grayscale').length);
+
+const mouseUpEvent = new MouseEvent('mouseup', {
+  bubbles: true,
+  cancelable: true,
+  view: window
+});
+
+let found : Element;
+let delay = false;
+const colorDelay = setInterval(() => {
+    delay = false;
+}, 1000)
+
+async function disableCrayon() {
+    await new Promise((r) => setTimeout(r, 150));
+    if($coloredElements.get() >= $maxColoredElements.get()){
+        found.setAttribute('disabled', '');
+        found.dispatchEvent(mouseUpEvent);
+    }
+}
+
+const motionID = '#motion-crayon';
+const handleColoring = (event : Event) => {
+    const pos = found?.getBoundingClientRect();
+    const canColor : Element[] = document.elementsFromPoint(pos.right - 25, pos.y - 5);
+    canColor?.forEach((element : Element) => {
+        if(!delay && element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const animX = pos.right - (pos.width + 15);
+            const animY = -(vh - pos.bottom) + 10;
+            delay = true;
+            animate([
+                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+            ]);
+            element.classList.remove('grayscale');
+            audio.pause();
+            audio.play();
+            $coloredElements.set($coloredElements.get() + 1);
+            disableCrayon();
+        }
+    });
+};
+
+const interval = setInterval(() => {
+    const crayon = document.querySelector('#motion-crayon');
+    crayon?.addEventListener('mousemove', handleColoring);
+    if(crayon) {found = crayon; clearInterval(interval);}
+}, 200)
+
+const listener = $coloredElements.listen((cur) => {
+    if(cur < $maxColoredElements.get() && found?.hasAttribute('disabled')){
+        found.removeAttribute('disabled');
+    }
+});
+
+let timeout = toolDiff*2; // seconds
+const handleIdle = () => {
+    if($coloredElements.get() === 0) {
+        animate([
+            ['#crayon-icon', {rotate: -45}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
+        ], {duration: 6});
+        animate([
+            ['#crayon-label', {opacity: 1, y:-20}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: -0}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
+            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
+            ['#crayon-label', {opacity: 0, y:0}, {ease: "easeInOut"}],
+        ], {duration: 4});
+    }
+}
+const idleAnimation = setInterval(() => {
+    handleIdle();
+    timeout *= 1.5; // dont spam....
+}, 1000 * timeout)
+
+</script>
+
