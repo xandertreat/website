@@ -8,7 +8,7 @@ import { toolDiff } from '../json/animationConfig.json';
     className="z-50 absolute bottom-5 left-5 size-16 transition-colors duration-300 disabled:grayscale disabled:pointer-events-none"
     id="motion-crayon"
     initial={{ x: -64, opacity: 0, filter: "grayscale(1)"}}
-    animate={{transition: {type: "spring", ease: "easeOut", delay: toolDiff, duration: 0.5}, x: 0, opacity: 1,  filter: "" }}
+    animate={{transition: {type: "spring", ease: "easeOut", delay: 1, duration: 0.5}, x: 0, opacity: 1,  filter: "" }}
     whileHover={{ scale: 1.1, cursor: 'none'}}
     whileTap={{ scale: 0.9, rotate: 25, cursor: 'none'}}
     whileDrag={{ scale: 0.9, rotate: 25, cursor: 'none' }}
@@ -29,12 +29,6 @@ const audio = new Audio(crayonSFX);
 audio.volume = 0.5;
 $maxColoredElements.set(document.querySelectorAll('.remove-grayscale').length);
 
-const mouseUpEvent = new MouseEvent('mouseup', {
-  bubbles: true,
-  cancelable: true,
-  view: window
-});
-
 let found : Element;
 let delay = false;
 const colorDelay = setInterval(() => {
@@ -45,7 +39,6 @@ async function disableCrayon() {
     await new Promise((r) => setTimeout(r, 150));
     if($coloredElements.get() >= $maxColoredElements.get()){
         found.setAttribute('disabled', '');
-        found.dispatchEvent(mouseUpEvent);
     }
 }
 
@@ -53,21 +46,23 @@ let idleLabelAnim : any;
 const motionID = '#motion-crayon';
 const handleColoring = (event : Event) => {
     const pos = found?.getBoundingClientRect();
-    const canColor : Element[] = document.elementsFromPoint(pos.right - 25, pos.y - 5);
+    const cursorDiff = 13;
+    const shakeIntensity = 5;
+    const canColor : Element[] = document.elementsFromPoint(pos.right - cursorDiff*2, pos.top + cursorDiff);
     canColor?.forEach((element : Element) => {
         if(!delay && element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
             const vh = window.innerHeight || document.documentElement.clientHeight;
-            const animX = pos.right - (pos.width + 15);
-            const animY = -(vh - pos.bottom) + 10;
-            idleLabelAnim.complete();
+            const animX = pos.left - cursorDiff;
+            const animY = -(vh - pos.bottom) + cursorDiff
+            idleLabelAnim?.complete();
             delay = true;
             animate([
-                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
                 [motionID, {x: animX, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
             ]);
             element.classList.remove('grayscale');
@@ -92,9 +87,8 @@ const listener = $coloredElements.listen((cur) => {
     }
 });
 
-let timeout = toolDiff*2; // seconds
 const handleIdle = () => {
-    if($coloredElements.get() === 0) {
+    if($coloredElements.get() === 0 && !found.matches(':active') && !found.hasAttribute('disabled')) {
         idleShakeAnim = animate([
             ['#crayon-icon', {rotate: -45}],
             ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
@@ -133,6 +127,7 @@ const handleIdle = () => {
         ], {duration: 4});
     }
 }
+let timeout = toolDiff*2; // seconds
 const idleAnimation = setInterval(() => {
     handleIdle();
     timeout *= 1.5; // dont spam....

@@ -1,31 +1,29 @@
 ---
 // Components
 import Icon from "@xtreat/astro-iconify"
-
-// Islands
 import { motion } from "motion/react"
 import { toolDiff } from '../json/animationConfig.json';
 ---
 <motion.button
-    className="z-50 absolute bottom-5 right-5 size-16 disabled:pointer-events-none disabled:cursor-none transition-colors duration-300 text-pink-400 disabled:text-black"
+    className="z-50 absolute bottom-5 right-5 size-16 transition-colors duration-300 text-pink-400 disabled:grayscale disabled:pointer-events-none"
     id="motion-eraser"
-    initial={{ x: 64, opacity: 0}}
-    animate={{transition: {type: "spring", ease: "easeOut", delay: toolDiff, duration: 0.5}, x: 0, opacity: 1}}
-    whileHover={{ scale: 1.1, rotate: -5, cursor:"none"}}
-    whileTap={{ scale: 0.9, rotate: -20, cursor:"none" }}
-    whileDrag={{ scale: 0.9, rotate: -20, cursor:"none" }}
-    dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
-    dragElastic={1}
-    drag
+    initial={{ x: 64, opacity: 0, filter: "grayscale(1)"}}
+    animate={{transition: {type: "spring", ease: "easeOut", delay: 1, duration: 0.5}, x: 0, opacity: 1,  filter: "" }}
+    whileHover={{ scale: 1.1, cursor: 'none'}}
+    whileTap={{ scale: 0.9, rotate: -20, cursor: 'none'}}
+    whileDrag={{ scale: 0.9, rotate: -20, cursor: 'none' }}
+    drag dragElastic={1} dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
     disabled
     client:only="react"
 >
     <Icon class="size-full" icon="svg-spinners:pulse-rings-2" slot="fallback" />
-    <Icon class="size-full" icon="fe:eraser" />
+  <Icon class="size-full" icon="fe:eraser" id="eraser-icon"/>
 </motion.button>
 
 <script>
 import { $coloredElements } from '../scripts/stores/coloredElements.ts';
+import { toolDiff } from '../json/animationConfig.json' assert { type: 'json' };
+import { animate } from "motion"
 import eraserSFX from '../assets/sound/eraser.mp3';
 const audio = new Audio(eraserSFX);
 audio.volume = 0.5;
@@ -36,6 +34,12 @@ const mouseUpEvent = new MouseEvent('mouseup', {
   view: window
 });
 
+let found : Element;
+let delay = false;
+const colorDelay = setInterval(() => {
+    delay = false;
+}, 1000)
+
 async function disableEraser() {
     await new Promise((r) => setTimeout(r, 150));
     if($coloredElements.get() <= 0){
@@ -43,31 +47,84 @@ async function disableEraser() {
         found.dispatchEvent(mouseUpEvent);
     }
 }
-
+let idleLabelAnim : any;
+const motionID = '#motion-eraser';
 const handleErasing = (event : Event) => {
-    const canErase : Element[] = document.elementsFromPoint(event.clientX, event.clientY);
-    canErase?.forEach((element : Element) => {
-        if(!element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
+    const pos = found?.getBoundingClientRect();
+    const cursorDiff = 20;
+    const shakeIntensity = 5;
+    const canColor : Element[] = document.elementsFromPoint(pos.right - cursorDiff*2, pos.top + cursorDiff);
+    canColor?.forEach((element : Element) => {
+        if(!delay && !element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+            const vw = window.innerWidth || document.documentElement.clientWidth;
+            const animX = -(vw - pos.right) + cursorDiff;
+            const animY = -(vh - pos.bottom) + cursorDiff*(2/3);
+            delay = true;
+            animate([
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+                [motionID, {x: animX, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
+            ]);
             element.classList.add('grayscale');
+            audio.pause();
             audio.play();
-            const newVal = $coloredElements.get() - 1;
+            const newVal = $coloredElements.get() - 1
             $coloredElements.set(newVal >= 0 ? newVal : 0);
             disableEraser();
         }
     });
 };
 
-let found : Element;
+let idleShakeAnim : any;
 const interval = setInterval(() => {
     const eraser = document.querySelector('#motion-eraser');
     eraser?.addEventListener('mousemove', handleErasing);
-    if(eraser) {found = eraser; clearInterval(interval);}
+    if(eraser) {found = eraser; eraser.addEventListener('mouseenter', () => {idleShakeAnim.complete();}); clearInterval(interval);}
 }, 200)
 
 const listener = $coloredElements.listen((cur) => {
     if(cur > 0){
-        found?.removeAttribute('disabled');
+        found.removeAttribute('disabled');
     }
 });
+
+const handleIdle = () => {
+    if($coloredElements.get() === 0 && !found.matches(':active') && !found.hasAttribute('disabled')) {
+        idleShakeAnim = animate([
+            ['#eraser-icon', {rotate: -45}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -45}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -45}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -30}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -60}, {ease: "easeInOut"}],
+            ['#eraser-icon', {rotate: -45}, {ease: "easeInOut"}],
+        ], {duration: 6});
+    }
+}
+let timeout = toolDiff*3; // seconds
+const idleAnimation = setInterval(() => {
+    handleIdle();
+    timeout *= 1.25; // dont spam....
+}, 1000 * timeout)
 
 </script>
