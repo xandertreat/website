@@ -77,10 +77,11 @@ const handleColoring = (event : Event) => {
     });
 };
 
+let idleShakeAnim : any;
 const interval = setInterval(() => {
     const crayon = document.querySelector('#motion-crayon');
     crayon?.addEventListener('mousemove', handleColoring);
-    if(crayon) {found = crayon; clearInterval(interval);}
+    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim.complete();}); clearInterval(interval);}
 }, 200)
 
 const listener = $coloredElements.listen((cur) => {
@@ -92,7 +93,7 @@ const listener = $coloredElements.listen((cur) => {
 let timeout = toolDiff*2; // seconds
 const handleIdle = () => {
     if($coloredElements.get() === 0) {
-        animate([
+        idleShakeAnim = animate([
             ['#crayon-icon', {rotate: -45}],
             ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
             ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
