@@ -79,7 +79,7 @@ const iconClass = "size-full";
     import { linksDiff } from '../json/animationConfig.json' assert { type: 'json' };
 
     const initialDelay = setInterval( () => {
-        animate('.portfolioLink', {opacity: 1, y: -10}, {delay: stagger(0.3)});
+        animate('.portfolioLink', {opacity: 1, y: 10}, {delay: stagger(0.3)});
         clearInterval(initialDelay);
     }, linksDiff * 1000);
 </script>

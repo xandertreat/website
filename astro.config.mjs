@@ -8,4 +8,7 @@ import react from "@astrojs/react";
 export default defineConfig({
   prefetch: true,
   integrations: [tailwind(), react()],
+  vite: {
+    assetsInclude: ['**/*.mp3'],
+  },
 });
