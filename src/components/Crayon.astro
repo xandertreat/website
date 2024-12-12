@@ -49,6 +49,7 @@ async function disableCrayon() {
     }
 }
 
+let idleLabelAnim : any;
 const motionID = '#motion-crayon';
 const handleColoring = (event : Event) => {
     const pos = found?.getBoundingClientRect();
@@ -58,6 +59,7 @@ const handleColoring = (event : Event) => {
             const vh = window.innerHeight || document.documentElement.clientHeight;
             const animX = pos.right - (pos.width + 15);
             const animY = -(vh - pos.bottom) + 10;
+            idleLabelAnim.complete();
             delay = true;
             animate([
                 [motionID, {x: animX-5, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
@@ -117,7 +119,7 @@ const handleIdle = () => {
             ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
             ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
         ], {duration: 6});
-        animate([
+        idleLabelAnim = animate([
             ['#crayon-label', {opacity: 1, y:-20}, {ease: "easeInOut"}],
             ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
             ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
