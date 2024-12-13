@@ -6,17 +6,18 @@ const linkClass = "portfolioLink cursor-none opacity-0 size-full tooltip tooltip
 const iconClass = "size-full";
 ---
 
-<div class="grid grid-flow-col justify-center items-center gap-5 mb-12" >
+<div class="grid grid-flow-col justify-center items-center gap-5 mt-8 mb-12" >
     <div class={wrapperClass}>
         <a class={linkClass + " hover:translate-y-0"}
         target="_blank"
         data-tip="Resume"
         href="lniked in link here"
         draggable="false"
+        aria-label="Resume"
         >
             <Icon
                 icon="mdi:resume"
-                class={iconClass + " *:fill-yellow-800"}
+                class={iconClass + " *:fill-indigo-400"}
             />
         </a>
     </div>
@@ -26,10 +27,11 @@ const iconClass = "size-full";
         data-tip="GitHub"
         href="https://github.com/xandertreat"
         draggable="false"
+        aria-label="GitHub"
         >
             <Icon 
                 icon="logos:github-icon"
-                class={iconClass + " *:fill-purple-700"}
+                class={iconClass + " *:fill-amber-300"}
             />
         </a>
     </div>
@@ -39,6 +41,7 @@ const iconClass = "size-full";
         data-tip="NPM"
         href="https://www.npmjs.com/~xtreat"
         draggable="false"
+        aria-label="NPM"
         >
             <Icon 
                 icon="logos:npm-icon"
@@ -52,6 +55,7 @@ const iconClass = "size-full";
         data-tip="LinkedIn"
         href="https://www.linkedin.com/in/xandertreat/"
         draggable="false"
+        aria-label="LinkedIn"
         >
             <Icon
                 icon="logos:linkedin-icon"
@@ -65,10 +69,11 @@ const iconClass = "size-full";
         data-tip="X"
         href="https://x.com/XanderTreat"
         draggable="false"
+        aria-label="X"
         >
             <Icon
                 icon="logos:x"
-                class={iconClass}
+                class={iconClass + " fill-gray-500"}
             />
         </a>
     </div>

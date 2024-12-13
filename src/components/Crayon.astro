@@ -16,7 +16,7 @@ import { toolDiff } from '../json/animationConfig.json';
     client:only="react"
 >
     <Icon class="size-full" icon="svg-spinners:pulse-rings-2" slot="fallback" />
-    <h1 class="size-full absolute -top-16 font-parkinsans font-semibold opacity-0 text-green-400" id="crayon-label"> Drag me! </h1>
+    <h1 class="size-full absolute -top-16 font-parkinsans font-semibold opacity-0 text-green-400 pointer-events-none" id="crayon-label"> Drag me! </h1>
     <Icon class="size-full -rotate-45" flip="horizontal,vertical" icon="emojione:crayon" id="crayon-icon"/>
 </motion.button>
 
@@ -78,7 +78,7 @@ let idleShakeAnim : any;
 const interval = setInterval(() => {
     const crayon = document.querySelector('#motion-crayon');
     crayon?.addEventListener('mousemove', handleColoring);
-    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim.complete();}); clearInterval(interval);}
+    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim?.complete();}); clearInterval(interval);}
 }, 200)
 
 const listener = $coloredElements.listen((cur) => {

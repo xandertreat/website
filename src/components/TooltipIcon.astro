@@ -13,7 +13,7 @@ const {icon, tooltip, tailwind, ...attrs} = Astro.props;
 ---
 
 <div
-    class=`tooltip tooltip-bottom h-2/3 w-max transition-all duration-300 hover:mx-1 hover:scale-110 ${tailwind}`
+    class={"md:basis-24 md:size-24 basis-12 md:mb-10 flex-shrink flex-grow-0 transition-opacity duration-300 tooltip tooltip-bottom " + tailwind}
     data-tip={tooltip}
     {...attrs}
 >

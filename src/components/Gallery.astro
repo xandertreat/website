@@ -1,0 +1,96 @@
+---
+import Card from '../components/Card.astro';
+import TooltipIcon from '../components/TooltipIcon.astro';
+
+const linkClass = "group min-w-fit flex-grow font-parkinsans font-light text-2xl transition-colors duraition-300 text-amber-300 hover:text-amber-200 focus:text-amber-200 grayscale remove-grayscale";
+const linkTxtClass = "text-center pb-1 bg-gradient-to-r from-amber-400 to-amber-400 bg-[length:0%_2px] bg-bottom bg-no-repeat transition-all duration-300 ease-in-out group-hover:bg-[length:100%_2px] focus:bg-[length:100%_2px]";
+const carouselItemClass = "carousel-item w-full h-fit flex flex-wrap items-center justify-center gap-10 grayscale remove-grayscale";
+---
+
+<div class="flex flex-col items-center justify-center gap-20">
+    <div class="galleryNavigation flex items-center justify-center opacity-0 gap-8 md:pb-4 z-10" style="user-select: none;">
+        <a class={linkClass} href="#languages" draggable="false">
+            <span class={linkTxtClass}> Languages </span>
+        </a>
+        <a class={linkClass} href="#web" draggable="false">
+            <span class={linkTxtClass}> Web </span>
+        </a>
+        <a class={linkClass} href="#frameworks" draggable="false">
+            <span class={linkTxtClass}> Frameworks </span>
+        </a>
+        <a class={linkClass} href="#libraries" draggable="false">
+            <span class={linkTxtClass}> Libraries </span>
+        </a>
+        <a class={linkClass} href="#cloud" draggable="false">
+            <span class={linkTxtClass}> Cloud </span>
+        </a>
+        <a class={linkClass} href="#tools" draggable="false">
+            <span class={linkTxtClass}> Tools </span>
+        </a>
+    </div>
+
+    <div class="galleryDisplay carousel rounded-box h-fit w-1/2 gap-10 opacity-0 relative bottom-12 overflow-hidden">
+        <div class={carouselItemClass} id="languages">
+            <TooltipIcon tooltip='C#' icon="logos:c-sharp" />
+            <TooltipIcon tooltip='C' icon="logos:c" />
+            <TooltipIcon tooltip='C++' icon="logos:c-plusplus" />
+            <TooltipIcon tooltip='Java' icon="logos:java" />
+            <TooltipIcon tooltip='Python' icon="logos:python" />
+            <TooltipIcon tooltip='Lua' icon="logos:lua" />
+        </div>
+        <div class={carouselItemClass} id="web">
+			<TooltipIcon tooltip='HTML' icon="logos:html-5" />
+			<TooltipIcon tooltip='CSS' icon="logos:css-3" />
+			<TooltipIcon tooltip='JavaScript' icon="logos:javascript" />
+			<TooltipIcon tooltip='TypeScript' icon="logos:typescript-icon" />
+			<TooltipIcon tooltip='NodeJS' icon="logos:nodejs" />
+			<TooltipIcon tooltip='Deno' icon="logos:deno" />
+        </div>
+        <div class={carouselItemClass} id="frameworks">
+			<TooltipIcon tooltip='Vite' icon="logos:vitejs" />
+			<TooltipIcon tooltip='Astro' icon="logos:astro-icon" />
+			<TooltipIcon tooltip='Fresh' icon="logos:fresh" />
+			<TooltipIcon tooltip='Preact' icon="logos:preact" />
+			<TooltipIcon tooltip='React' icon="logos:react" />
+			<TooltipIcon tooltip='React Native' icon="logos:react" />
+			<TooltipIcon tooltip='htmx' icon="logos:htmx-icon" />
+        </div>
+        <div class={carouselItemClass} id="libraries">
+			<TooltipIcon tooltip='TailwindCSS' icon="logos:tailwindcss-icon" />
+			<TooltipIcon tooltip='DaisyUI' icon="logos:daisyui-icon" />
+			<TooltipIcon tooltip='Bootstrap' icon="logos:bootstrap" />
+			<TooltipIcon tooltip='D3.js' icon="logos:d3" />
+			<TooltipIcon tooltip='Framer Motion' icon="logos:framer" />
+			<TooltipIcon tooltip='Drizzle' icon="lineicons:drizzle" tailwind='text-gray-200' />
+			<TooltipIcon tooltip='Auth.js' icon="arcticons:kul-authenticator" tailwind='text-gray-200' />
+        </div>
+        <div class={carouselItemClass} id="cloud">
+			<TooltipIcon tooltip='MySQL' icon="logos:mysql" />
+			<TooltipIcon tooltip='SQLite' icon="devicon:sqlite" />
+			<TooltipIcon tooltip='MongoDB' icon="logos:mongodb-icon" />
+			<TooltipIcon tooltip='Docker' icon="logos:docker-icon" />
+			<TooltipIcon tooltip='AWS' icon="logos:aws" />
+			<TooltipIcon tooltip='Google Cloud' icon="logos:google-cloud" />
+        </div>
+        <div class={carouselItemClass} id="tools">
+			<TooltipIcon tooltip='Visual Studio Code' icon="logos:visual-studio-code" />
+			<TooltipIcon tooltip='Microsoft Office' icon="logos:microsoft-icon" />
+			<TooltipIcon tooltip='Slack' icon="logos:slack-icon" />
+			<TooltipIcon tooltip='GitHub Actions' icon="logos:github-actions" />
+			<TooltipIcon tooltip='Taiga' icon="logos:taiga" />
+			<TooltipIcon tooltip='Trello' icon="logos:trello" />
+        </div>
+    </div>
+</div>
+
+<script>
+    import {animate} from 'motion';
+    import { linksDiff } from '../json/animationConfig.json' assert { type: 'json' };
+
+    const dur = 1.5;
+    const initialDelay = setInterval( () => {
+        animate('.galleryNavigation', {opacity: 1, y: 10}, {duration: dur});
+        animate('.galleryDisplay', {opacity: 1, y: -10}, {duration: dur});
+        clearInterval(initialDelay);
+    }, linksDiff * 1000);
+</script>

@@ -84,7 +84,7 @@ let idleShakeAnim : any;
 const interval = setInterval(() => {
     const eraser = document.querySelector('#motion-eraser');
     eraser?.addEventListener('mousemove', handleErasing);
-    if(eraser) {found = eraser; eraser.addEventListener('mouseenter', () => {idleShakeAnim.complete();}); clearInterval(interval);}
+    if(eraser) {found = eraser; eraser.addEventListener('mouseenter', () => {idleShakeAnim?.complete();}); clearInterval(interval);}
 }, 200)
 
 const listener = $coloredElements.listen((cur) => {

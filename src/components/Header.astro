@@ -2,19 +2,19 @@
 import Icon from "@xtreat/astro-iconify";
 ---
 
-<div class="w-full grid items-center justify-center pt-10 -mb-4">
+<div class="w-full grid items-center justify-center">
     <span class="text-center space-y-1 hover:cursor-default"  style="user-select: none;">
-        <div class="group transition-all duration-500 grayscale remove-grayscale"><h1 class="font-parkinsans font-light text-4xl text-blue-300 opacity-0 mb-12" id="headerName">
+        <div class="group transition-all duration-500 grayscale remove-grayscale pt-8"><h1 class="font-parkinsans font-light text-7xl text-amber-300 opacity-0" id="headerName">
             Xander Treat
             <button
-                class="absolute -bottom-2 size-6 opacity-0 transition-all duration-200 group-hover:opacity-100 hover:scale-110 active:scale-100 text-gray-200 tooltip tooltip-right"
+                class="absolute -bottom-2 size-6 opacity-0 transition-all duration-200 group-hover:opacity-100 hover:scale-110 active:scale-100 text-white tooltip tooltip-right"
                 id = "copy-btn"
                 data-tip="Copy"
             >
                 <Icon class="size-full" flip="horizontal" icon="mingcute:copy-line" />
             </button>
         </h1> </div>
-        <div class="transition-all duration-500 grayscale remove-grayscale"><h2 class="font-parkinsans font-semibold text-4xl text-blue-600 opacity-0" id="subHeader">Fullstack <br>Software Engineer.</h2></div>
+        <div class="transition-all duration-500 grayscale remove-grayscale"><h2 class="font-parkinsans font-semibold text-4xl text-amber-200 opacity-0" id="subHeader">Fullstack <br>Software Engineer.</h2></div>
     </span>
 </div>
 
@@ -35,6 +35,6 @@ import { headerName, subHeaderDiff} from '../json/animationConfig.json' assert {
 
 animate([
     ['#headerName', {  opacity: 100, y: 24 }, {delay: headerName}],
-    ['#subHeader', { opacity: 100, y: -24 }, {delay: subHeaderDiff}],
+    ['#subHeader', { opacity: 100, y: 24 }, {delay: subHeaderDiff}],
 ]);
 </script>

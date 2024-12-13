@@ -23,3 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vscode/
+
+# npm project for now, deno for devs
+deno.json
+deno.lock
