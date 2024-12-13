@@ -11,13 +11,7 @@ import partytown from "@astrojs/partytown";
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  integrations: [tailwind(), react(), purgecss({
-    fontFace: true,
-    keyframes: true,
-  }), partytown()],
-  build: {
-    inlineStylesheets: "never"
-  },
+  integrations: [tailwind(), react(), partytown()],
   vite: {
     assetsInclude: ['**/*.mp3'],
   },
