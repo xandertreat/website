@@ -6,10 +6,15 @@ import react from "@astrojs/react";
 
 import purgecss from "astro-purgecss";
 
+import partytown from "@astrojs/partytown";
+
 // https://astro.build/config
 export default defineConfig({
   prefetch: true,
-  integrations: [tailwind(), react(), purgecss()],
+  integrations: [tailwind(), react(), purgecss({
+    fontFace: true,
+    keyframes: true,
+  }), partytown()],
   build: {
     inlineStylesheets: "never"
   },
