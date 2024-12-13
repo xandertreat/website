@@ -16,4 +16,18 @@ import Gallery from '../components/Gallery.astro';
 	<Gallery />
 	<Crayon />
 	<Eraser />
+	<div class="w-full h-fit flex items-end justify-center">
+		<span class="text-center font-parkinsans font-extralight text-amber-300 opacity-0 hint hidden md:grid" draggable="false" style="user-select: none;"> Try to color everything... </span>
+	</div>
 </BaseLayout>
+
+<script>
+import { animate } from "motion";
+setInterval(() => {
+	animate('.hint', {opacity: 1}, {duration: 2.5});
+	setInterval(() => {
+		animate('.hint', {opacity: 0}, {duration: 2});
+	}, 8 * 1000);
+}, 15 * 1000);
+
+</script>

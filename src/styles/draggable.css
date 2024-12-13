@@ -1,6 +1,0 @@
-.non-draggable {
-    user-drag: none;
-    -webkit-user-drag: none;
-    user-select: none;
-    cursor: default;
-}

@@ -5,13 +5,36 @@ import '../styles/fonts.css';
 // Islands
 import Confetti from '../components/islands/Confetti.tsx';
 import Background from '../components/Background.astro';
+
+import { Seo } from "astro-seo-meta"
 ---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Xander Treat">
+		<meta name="robots" content="index">
+		<meta name="googlebot" content="index">
+		<meta name="referrer" content="no-referrer">
+        <Seo
+          title="Xander Treat"
+          description="Personal portfolio website"
+          icon="favicon.ico"
+		  keywords={['website', 'blog', 'astro', 'fast', 'resume', 'portfolio', 'personal', 'xtreat', 'xander', 'treat', 'xandertreat']}
+		  themeColor='#3C0563'
+		  colorScheme='dark'
+		  facebook={{
+			image: "/facebook.png",
+			url: "https://xtreat.dev",
+			type: "website",
+		  }}
+		  twitter={{
+			image: "/twitter.png",
+			site: "@xandertreat",
+			card: "summary",
+		  }}
+        />
 		<meta name="generator" content={Astro.generator} />
 		<title>Xander Treat</title>
 	</head>

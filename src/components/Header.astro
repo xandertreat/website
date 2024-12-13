@@ -10,6 +10,7 @@ import Icon from "@xtreat/astro-iconify";
                 class="absolute -bottom-2 size-6 opacity-0 transition-all duration-200 group-hover:opacity-100 hover:scale-110 active:scale-100 text-white tooltip tooltip-right"
                 id = "copy-btn"
                 data-tip="Copy"
+                aria-label="Copy"
             >
                 <Icon class="size-full" flip="horizontal" icon="mingcute:copy-line" />
             </button>
@@ -31,7 +32,7 @@ const handleClipboard = () => {
 btn?.addEventListener('mouseup', handleClipboard);
 
 import { animate } from "motion";
-import { headerName, subHeaderDiff} from '../json/animationConfig.json' assert { type: 'json' };
+import { headerName, subHeaderDiff} from '../json/animationConfig.json';
 
 animate([
     ['#headerName', {  opacity: 100, y: 24 }, {delay: headerName}],

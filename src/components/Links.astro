@@ -81,7 +81,7 @@ const iconClass = "size-full";
 
 <script>
     import {animate, stagger} from 'motion';
-    import { linksDiff } from '../json/animationConfig.json' assert { type: 'json' };
+    import { linksDiff } from '../json/animationConfig.json';
 
     const initialDelay = setInterval( () => {
         animate('.portfolioLink', {opacity: 1, y: 10}, {delay: stagger(0.3)});

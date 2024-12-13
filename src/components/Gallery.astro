@@ -1,14 +1,16 @@
 ---
+import Icon from '@xtreat/astro-iconify';
 import Card from '../components/Card.astro';
 import TooltipIcon from '../components/TooltipIcon.astro';
 
 const linkClass = "group min-w-fit flex-grow font-parkinsans font-light text-2xl transition-colors duraition-300 text-amber-300 hover:text-amber-200 focus:text-amber-200 grayscale remove-grayscale";
 const linkTxtClass = "text-center pb-1 bg-gradient-to-r from-amber-400 to-amber-400 bg-[length:0%_2px] bg-bottom bg-no-repeat transition-all duration-300 ease-in-out group-hover:bg-[length:100%_2px] focus:bg-[length:100%_2px]";
 const carouselItemClass = "carousel-item w-full h-fit flex flex-wrap items-center justify-center gap-10 grayscale remove-grayscale";
+const mobileNavClass = "";
 ---
 
-<div class="flex flex-col items-center justify-center gap-20">
-    <div class="galleryNavigation flex items-center justify-center opacity-0 gap-8 md:pb-4 z-10" style="user-select: none;">
+<div class="flex flex-col items-center justify-center gap-20 md:-mb-16">
+    <div class="galleryNavigation hidden md:flex items-center justify-center opacity-0 gap-8 md:pb-4 z-10" style="user-select: none;">
         <a class={linkClass} href="#languages" draggable="false">
             <span class={linkTxtClass}> Languages </span>
         </a>
@@ -29,68 +31,117 @@ const carouselItemClass = "carousel-item w-full h-fit flex flex-wrap items-cente
         </a>
     </div>
 
-    <div class="galleryDisplay carousel rounded-box h-fit w-1/2 gap-10 opacity-0 relative bottom-12 overflow-hidden">
-        <div class={carouselItemClass} id="languages">
-            <TooltipIcon tooltip='C#' icon="logos:c-sharp" />
-            <TooltipIcon tooltip='C' icon="logos:c" />
-            <TooltipIcon tooltip='C++' icon="logos:c-plusplus" />
-            <TooltipIcon tooltip='Java' icon="logos:java" />
-            <TooltipIcon tooltip='Python' icon="logos:python" />
-            <TooltipIcon tooltip='Lua' icon="logos:lua" />
-        </div>
-        <div class={carouselItemClass} id="web">
-			<TooltipIcon tooltip='HTML' icon="logos:html-5" />
-			<TooltipIcon tooltip='CSS' icon="logos:css-3" />
-			<TooltipIcon tooltip='JavaScript' icon="logos:javascript" />
-			<TooltipIcon tooltip='TypeScript' icon="logos:typescript-icon" />
-			<TooltipIcon tooltip='NodeJS' icon="logos:nodejs" />
-			<TooltipIcon tooltip='Deno' icon="logos:deno" />
-        </div>
-        <div class={carouselItemClass} id="frameworks">
-			<TooltipIcon tooltip='Vite' icon="logos:vitejs" />
-			<TooltipIcon tooltip='Astro' icon="logos:astro-icon" />
-			<TooltipIcon tooltip='Fresh' icon="logos:fresh" />
-			<TooltipIcon tooltip='Preact' icon="logos:preact" />
-			<TooltipIcon tooltip='React' icon="logos:react" />
-			<TooltipIcon tooltip='React Native' icon="logos:react" />
-			<TooltipIcon tooltip='htmx' icon="logos:htmx-icon" />
-        </div>
-        <div class={carouselItemClass} id="libraries">
-			<TooltipIcon tooltip='TailwindCSS' icon="logos:tailwindcss-icon" />
-			<TooltipIcon tooltip='DaisyUI' icon="logos:daisyui-icon" />
-			<TooltipIcon tooltip='Bootstrap' icon="logos:bootstrap" />
-			<TooltipIcon tooltip='D3.js' icon="logos:d3" />
-			<TooltipIcon tooltip='Framer Motion' icon="logos:framer" />
-			<TooltipIcon tooltip='Drizzle' icon="lineicons:drizzle" tailwind='text-gray-200' />
-			<TooltipIcon tooltip='Auth.js' icon="arcticons:kul-authenticator" tailwind='text-gray-200' />
-        </div>
-        <div class={carouselItemClass} id="cloud">
-			<TooltipIcon tooltip='MySQL' icon="logos:mysql" />
-			<TooltipIcon tooltip='SQLite' icon="devicon:sqlite" />
-			<TooltipIcon tooltip='MongoDB' icon="logos:mongodb-icon" />
-			<TooltipIcon tooltip='Docker' icon="logos:docker-icon" />
-			<TooltipIcon tooltip='AWS' icon="logos:aws" />
-			<TooltipIcon tooltip='Google Cloud' icon="logos:google-cloud" />
-        </div>
-        <div class={carouselItemClass} id="tools">
-			<TooltipIcon tooltip='Visual Studio Code' icon="logos:visual-studio-code" />
-			<TooltipIcon tooltip='Microsoft Office' icon="logos:microsoft-icon" />
-			<TooltipIcon tooltip='Slack' icon="logos:slack-icon" />
-			<TooltipIcon tooltip='GitHub Actions' icon="logos:github-actions" />
-			<TooltipIcon tooltip='Taiga' icon="logos:taiga" />
-			<TooltipIcon tooltip='Trello' icon="logos:trello" />
+    <div class="size-full flex flex-col items-center justify-center">
+        <span class={linkTxtClass + " md:hidden font-parkinsans font-light text-2xl transition-colors duraition-300 text-amber-300 hover:text-amber-200 focus:text-amber-200 mb-8 grayscale remove-grayscale opacity-0"} draggable="false" style="user-select: none;" id="mobileNavLabel"> Languages </span>
+        <div class="size-full flex flex-row items-center justify-center">
+            <a class="mobileNavBtnL btn btn-circle bg-gray-200 btn-sm opacity-0 relative right-8 bottom-20 md:hidden" id="mobileNavPrev">
+                <Icon class="size-full text-black" icon='material-symbols-light:arrow-left' />
+            </a>
+            <div class="galleryDisplay carousel rounded-box h-fit w-1/2 gap-10 opacity-0 relative md:bottom-12 overflow-hidden">
+                <div class={carouselItemClass} id="languages">
+                    <TooltipIcon tooltip='C#' icon="logos:c-sharp" />
+                    <TooltipIcon tooltip='C' icon="logos:c" />
+                    <TooltipIcon tooltip='C++' icon="logos:c-plusplus" />
+                    <TooltipIcon tooltip='Java' icon="logos:java" />
+                    <TooltipIcon tooltip='Python' icon="logos:python" />
+                    <TooltipIcon tooltip='Lua' icon="logos:lua" />
+                </div>
+                <div class={carouselItemClass} id="web">
+                    <TooltipIcon tooltip='HTML' icon="logos:html-5" />
+                    <TooltipIcon tooltip='CSS' icon="logos:css-3" />
+                    <TooltipIcon tooltip='JavaScript' icon="logos:javascript" />
+                    <TooltipIcon tooltip='TypeScript' icon="logos:typescript-icon" />
+                    <TooltipIcon tooltip='NodeJS' icon="logos:nodejs" />
+                    <TooltipIcon tooltip='Deno' icon="logos:deno" />
+                </div>
+                <div class={carouselItemClass} id="frameworks">
+                    <TooltipIcon tooltip='Vite' icon="logos:vitejs" />
+                    <TooltipIcon tooltip='Astro' icon="logos:astro-icon" />
+                    <TooltipIcon tooltip='Fresh' icon="logos:fresh" />
+                    <TooltipIcon tooltip='Preact' icon="logos:preact" />
+                    <TooltipIcon tooltip='React' icon="logos:react" />
+                    <TooltipIcon tooltip='React Native' icon="logos:react" />
+                    <TooltipIcon tooltip='htmx' icon="logos:htmx-icon" />
+                </div>
+                <div class={carouselItemClass} id="libraries">
+                    <TooltipIcon tooltip='TailwindCSS' icon="logos:tailwindcss-icon" />
+                    <TooltipIcon tooltip='DaisyUI' icon="logos:daisyui-icon" />
+                    <TooltipIcon tooltip='Bootstrap' icon="logos:bootstrap" />
+                    <TooltipIcon tooltip='D3.js' icon="logos:d3" />
+                    <TooltipIcon tooltip='Framer Motion' icon="logos:framer" />
+                    <TooltipIcon tooltip='Drizzle' icon="lineicons:drizzle" tailwind='text-gray-200' />
+                    <TooltipIcon tooltip='Auth.js' icon="arcticons:kul-authenticator" tailwind='text-gray-200' />
+                </div>
+                <div class={carouselItemClass} id="cloud">
+                    <TooltipIcon tooltip='MySQL' icon="logos:mysql" />
+                    <TooltipIcon tooltip='SQLite' icon="devicon:sqlite" />
+                    <TooltipIcon tooltip='MongoDB' icon="logos:mongodb-icon" />
+                    <TooltipIcon tooltip='Docker' icon="logos:docker-icon" />
+                    <TooltipIcon tooltip='AWS' icon="logos:aws" />
+                    <TooltipIcon tooltip='Google Cloud' icon="logos:google-cloud" />
+                </div>
+                <div class={carouselItemClass} id="tools">
+                    <TooltipIcon tooltip='Visual Studio Code' icon="logos:visual-studio-code" />
+                    <TooltipIcon tooltip='Microsoft Office' icon="logos:microsoft-icon" />
+                    <TooltipIcon tooltip='Slack' icon="logos:slack-icon" />
+                    <TooltipIcon tooltip='GitHub Actions' icon="logos:github-actions" />
+                    <TooltipIcon tooltip='Taiga' icon="logos:taiga" />
+                    <TooltipIcon tooltip='Trello' icon="logos:trello" />
+                </div>
+            </div>
+            <a class="mobileNavBtnR btn btn-circle bg-gray-200 btn-sm opacity-0 relative left-8 bottom-20 md:hidden" id="mobileNavNext">
+                <Icon class="size-full text-black" icon='material-symbols-light:arrow-right' />
+            </a>
         </div>
     </div>
 </div>
 
 <script>
-    import {animate} from 'motion';
+    // Imports
+    import { animate } from 'motion';
     import { linksDiff } from '../json/animationConfig.json' assert { type: 'json' };
 
+    // Data
+    const navigation = ["#languages", "#web", "#frameworks", "#libraries", "#cloud", "#tools"];
+    const navLbl = document.querySelector('#mobileNavLabel');
+    const navPrevBtn = document.querySelector('#mobileNavPrev');
+    const navNextBtn = document.querySelector('#mobileNavNext');
+    let prevIdx : number = navigation.length-1, currentIdx = 0, nextIdx : number = currentIdx+1;
+
+    // Functions
+    const mod = (n : number, m : number) => ((n % m) + m) % m;
+    const capitalizeFirstLetter = (str : string) =>
+        str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : '';
+    const updateNavigation = (currentDirection : ('prev' | 'next')) => {
+        if (currentDirection === 'prev') {
+            nextIdx = currentIdx;
+            currentIdx = mod(--currentIdx, navigation.length);
+            prevIdx = mod(currentIdx - 1, navigation.length);
+        } else {
+            prevIdx = currentIdx;
+            currentIdx = mod(++currentIdx, navigation.length);
+            nextIdx = mod(currentIdx + 1, navigation.length);
+        }
+
+        if (navLbl?.textContent)
+            navLbl.textContent = capitalizeFirstLetter(navigation[currentIdx].substring(1));
+
+        location.href = "#";
+        location.href = navigation[currentIdx];
+        history.replaceState(null, '', '#')
+        location.href = "#";
+    };
+
+    // Hooks
+    navPrevBtn?.addEventListener('mousedown', () => updateNavigation('prev'));
+    navNextBtn?.addEventListener('mousedown', () => updateNavigation('next'));
+
     const dur = 1.5;
-    const initialDelay = setInterval( () => {
-        animate('.galleryNavigation', {opacity: 1, y: 10}, {duration: dur});
-        animate('.galleryDisplay', {opacity: 1, y: -10}, {duration: dur});
-        clearInterval(initialDelay);
+    const initialDelay = setTimeout(() => {
+        animate('#mobileNavLabel', { opacity: 1, y: 10 }, { duration: dur });
+        animate('.galleryNavigation', { opacity: 1, y: 10 }, { duration: dur });
+        animate('.galleryDisplay', { opacity: 1, y: -10 }, { duration: dur });
+        animate('#mobileNavPrev', { opacity: 1, x: 10 }, { duration: dur });
+        animate('#mobileNavNext', { opacity: 1, x: -10 }, { duration: dur });
     }, linksDiff * 1000);
 </script>
