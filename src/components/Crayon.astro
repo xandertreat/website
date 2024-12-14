@@ -78,7 +78,8 @@ let idleShakeAnim : any;
 const interval = setInterval(() => {
     const crayon = document.querySelector('#motion-crayon');
     crayon?.addEventListener('mousemove', handleColoring);
-    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim?.complete();}); clearInterval(interval);}
+    crayon?.addEventListener('touchmove', handleColoring);
+    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim?.complete();}); crayon.addEventListener('touchstart', () => {idleShakeAnim?.complete();}); clearInterval(interval);}
 }, 200)
 
 const listener = $coloredElements.listen((cur) => {

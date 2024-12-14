@@ -126,10 +126,8 @@ const mobileNavClass = "";
         if (navLbl?.textContent)
             navLbl.textContent = capitalizeFirstLetter(navigation[currentIdx].substring(1));
 
-        location.href = "#";
         location.href = navigation[currentIdx];
         history.replaceState(null, '', '#')
-        location.href = "#";
     };
 
     // Hooks
