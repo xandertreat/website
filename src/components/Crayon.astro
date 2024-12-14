@@ -60,7 +60,7 @@ import { toolDiff } from "../json/animationConfig.json";
 
   let found: Element;
   let delay = false;
-  const colorDelay = setInterval(() => {
+  setInterval(() => {
     delay = false;
   }, 1000);
 
@@ -73,7 +73,7 @@ import { toolDiff } from "../json/animationConfig.json";
 
   let idleLabelAnim: any;
   const motionID = "#motion-crayon";
-  const handleColoring = (event: Event) => {
+  const handleColoring = () => {
     const pos = found?.getBoundingClientRect();
     const cursorDiff = 13;
     const shakeIntensity = 5;
@@ -155,7 +155,7 @@ import { toolDiff } from "../json/animationConfig.json";
     }
   }, 200);
 
-  const listener = $coloredElements.listen((cur) => {
+  $coloredElements.listen((cur) => {
     if (cur < $maxColoredElements.get() && found?.hasAttribute("disabled")) {
       found.removeAttribute("disabled");
     }
@@ -212,7 +212,7 @@ import { toolDiff } from "../json/animationConfig.json";
     }
   };
   let timeout = toolDiff * 2; // seconds
-  const idleAnimation = setInterval(() => {
+  setInterval(() => {
     handleIdle();
     timeout *= 1.5; // dont spam....
   }, 1000 * timeout);

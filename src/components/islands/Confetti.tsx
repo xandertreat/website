@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   $coloredElements,
   $maxColoredElements,
@@ -13,18 +13,22 @@ export const Component: React.FC = () => {
   const audio = new Audio(SFX);
   audio.volume = 0.5;
 
+  useEffect(() => {
+    if (showConfetti) {
+      audio.play().catch((err) => console.error("Audio play failed:", err));
+    }
+  }, [showConfetti]);
+
   return (
     showConfetti &&
-    audio.play() && (
       <ConfettiExplosion
         className="absolute inset-x-1/2 inset-y-full"
         particleCount={300}
         duration={10000}
         force={0.4}
-        width={"5000"}
+        width={5000}
         height={"800vh"}
       />
-    )
   );
 };
 

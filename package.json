@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/partytown": "^2.1.2",
     "@astrojs/react": "^4.0.0",
     "@astrojs/sitemap": "^3.2.1",
@@ -25,7 +26,8 @@
     "react": "^18.0.0",
     "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.0.0",
-    "tailwindcss": "^3.4.16"
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "daisyui": "^4.12.20",

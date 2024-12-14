@@ -1,6 +1,5 @@
 ---
 import Icon from "@xtreat/astro-iconify";
-import Card from "../components/Card.astro";
 import TooltipIcon from "../components/TooltipIcon.astro";
 
 const linkClass =
@@ -9,7 +8,7 @@ const linkTxtClass =
   "text-center pb-1 bg-gradient-to-r from-amber-400 to-amber-400 bg-[length:0%_2px] bg-bottom bg-no-repeat transition-all duration-300 ease-in-out group-hover:bg-[length:100%_2px] focus:bg-[length:100%_2px]";
 const carouselItemClass =
   "carousel-item w-full h-fit flex flex-wrap items-center justify-center gap-10 grayscale remove-grayscale";
-const mobileNavClass = "";
+const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opacity-0 md:hidden";
 ---
 
 <div class="flex flex-col items-center justify-center gap-20 md:-mb-16">
@@ -49,7 +48,7 @@ const mobileNavClass = "";
     </span>
     <div class="flex size-full flex-row items-center justify-center">
       <a
-        class="mobileNavBtnL btn btn-circle btn-sm relative bottom-20 right-8 bg-gray-200 opacity-0 md:hidden"
+        class={mobileNavClass + " mobileNavBtnL right-8"}
         id="mobileNavPrev"
       >
         <Icon
@@ -123,7 +122,7 @@ const mobileNavClass = "";
         </div>
       </div>
       <a
-        class="mobileNavBtnR btn btn-circle btn-sm relative bottom-20 left-8 bg-gray-200 opacity-0 md:hidden"
+        class={mobileNavClass + " mobileNavBtnR left-8"}
         id="mobileNavNext"
       >
         <Icon
@@ -152,24 +151,17 @@ const mobileNavClass = "";
   const navLbl = document.querySelector("#mobileNavLabel");
   const navPrevBtn = document.querySelector("#mobileNavPrev");
   const navNextBtn = document.querySelector("#mobileNavNext");
-  let prevIdx: number = navigation.length - 1,
-    currentIdx = 0,
-    nextIdx: number = currentIdx + 1;
+  let currentIdx = 0;
 
   // Functions
   const mod = (n: number, m: number) => ((n % m) + m) % m;
   const capitalizeFirstLetter = (str: string) =>
     str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : "";
-  const updateNavigation = (currentDirection: "prev" | "next") => {
-    if (currentDirection === "prev") {
-      nextIdx = currentIdx;
+  const updateNavigation = (dir: "prev" | "next") => {
+    if (dir === "prev")
       currentIdx = mod(--currentIdx, navigation.length);
-      prevIdx = mod(currentIdx - 1, navigation.length);
-    } else {
-      prevIdx = currentIdx;
+    else
       currentIdx = mod(++currentIdx, navigation.length);
-      nextIdx = mod(currentIdx + 1, navigation.length);
-    }
 
     if (navLbl?.textContent)
       navLbl.textContent = capitalizeFirstLetter(
@@ -185,11 +177,11 @@ const mobileNavClass = "";
   navNextBtn?.addEventListener("mousedown", () => updateNavigation("next"));
 
   const dur = 1.5;
-  const initialDelay = setTimeout(() => {
+setTimeout(() => {
     animate("#mobileNavLabel", { opacity: 1, y: 10 }, { duration: dur });
     animate(".galleryNavigation", { opacity: 1, y: 10 }, { duration: dur });
     animate(".galleryDisplay", { opacity: 1, y: -10 }, { duration: dur });
     animate("#mobileNavPrev", { opacity: 1, x: 10 }, { duration: dur });
     animate("#mobileNavNext", { opacity: 1, x: -10 }, { duration: dur });
-  }, linksDiff * 1000);
+}, linksDiff * 1000);
 </script>
