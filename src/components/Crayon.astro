@@ -13,10 +13,9 @@ import { toolDiff } from '../json/animationConfig.json';
     whileTap={{ scale: 0.9, rotate: 25, cursor: 'none'}}
     whileDrag={{ scale: 0.9, rotate: 25, cursor: 'none' }}
     drag dragElastic={1} dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
-    client:only="react"
     aria-label="Crayon"
+    client:idle
 >
-    <Icon class="size-full" icon="svg-spinners:pulse-rings-2" slot="fallback" />
     <h1 class="size-full absolute -top-16 font-parkinsans font-semibold opacity-0 text-green-400 pointer-events-none" id="crayon-label"> Drag me! </h1>
     <Icon class="size-full -rotate-45" flip="horizontal,vertical" icon="emojione:crayon" id="crayon-icon"/>
 </motion.button>
@@ -29,7 +28,6 @@ import crayonSFX from '../assets/sound/crayon.mp3';
 const audio = new Audio(crayonSFX);
 audio.volume = 0.5;
 $maxColoredElements.set(document.querySelectorAll('.remove-grayscale:not(hidden):not(opacity-0)').length - 1);
-console.log(document.querySelectorAll('.remove-grayscale:not(hidden):not(opacity-0)').length);
 
 let found : Element;
 let delay = false;
