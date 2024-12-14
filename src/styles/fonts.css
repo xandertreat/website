@@ -3,7 +3,7 @@
   src: url("/fonts/Parkinsans-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   src: url("/fonts/Parkinsans-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   src: url("/fonts/Parkinsans-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   src: url("/fonts/Parkinsans-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   src: url("/fonts/Parkinsans-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
 
 @font-face {
@@ -43,5 +43,5 @@
   src: url("/fonts/Parkinsans-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
-  font-display: block;
+  font-display: swap;
 }
