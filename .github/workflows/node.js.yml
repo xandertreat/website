@@ -35,7 +35,7 @@ jobs:
       run: npm run build
     
     - name: Test server run
-      run: npm run preview
+      run: npm run preview &
     
     - name: Test server (cURL)
       run: curl http://localhost:8085
