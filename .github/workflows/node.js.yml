@@ -1,0 +1,45 @@
+name: Astro Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 1.5
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Environment Setup
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    
+    - name: Format
+      run: npm run fmt
+    
+    - name: Lint
+      run: npx astro check
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Test server run
+      run: npm run preview
+    
+    - name: Test server (cURL)
+      run: curl http://localhost:8085
+
+    - name: Test server (netcat)
+      run: nc -zv localhost 8085
