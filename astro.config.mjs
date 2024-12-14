@@ -3,7 +3,6 @@ import { defineConfig } from "astro/config";
 // integrations
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
-import partytown from "@astrojs/partytown";
 // plugins
 import sitemap from "@astrojs/sitemap";
 
@@ -11,7 +10,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: 'https://xtreat.dev',
   prefetch: true,
-  integrations: [tailwind(), react(), partytown(), sitemap()],
+  integrations: [tailwind(), react(), sitemap()],
   vite: {
     assetsInclude: ['**/*.mp3'],
   },

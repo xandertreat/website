@@ -8,6 +8,9 @@ import Links from '../components/Links.astro';
 import Eraser from '../components/Eraser.astro';
 import Crayon from '../components/Crayon.astro';
 import Gallery from '../components/Gallery.astro';
+
+// Caching
+Astro.response.headers.set('Cache-Control', "no-cache");
 ---
 
 <BaseLayout>
