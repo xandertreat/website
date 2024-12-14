@@ -38,7 +38,7 @@ jobs:
       run: npm run preview &
     
     - name: Test server (cURL)
-      run: curl http://localhost:8085
+      run: curl http://localhost:4321
 
     - name: Test server (netcat)
-      run: nc -zv localhost 8085
+      run: nc -zv localhost 4321
