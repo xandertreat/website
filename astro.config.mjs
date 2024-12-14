@@ -8,10 +8,10 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://xtreat.dev',
+  site: "https://xtreat.dev",
   prefetch: true,
   integrations: [tailwind(), react(), sitemap()],
   vite: {
-    assetsInclude: ['**/*.mp3'],
+    assetsInclude: ["**/*.mp3"],
   },
 });

@@ -1,138 +1,219 @@
 ---
 // Components
-import Icon from "@xtreat/astro-iconify"
-import { motion } from "motion/react"
-import { toolDiff } from '../json/animationConfig.json';
+import Icon from "@xtreat/astro-iconify";
+import { motion } from "motion/react";
+import { toolDiff } from "../json/animationConfig.json";
 ---
+
 <motion.button
-    className="z-50 absolute bottom-5 left-5 size-16 transition-colors duration-300 disabled:grayscale disabled:pointer-events-none"
-    id="motion-crayon"
-    initial={{ x: -64, opacity: 0, filter: "grayscale(1)"}}
-    animate={{transition: {type: "spring", ease: "easeOut", delay: toolDiff, duration: 0.5}, x: 0, opacity: 1,  filter: "" }}
-    whileHover={{ scale: 1.1, cursor: 'none'}}
-    whileTap={{ scale: 0.9, rotate: 25, cursor: 'none'}}
-    whileDrag={{ scale: 0.9, rotate: 25, cursor: 'none' }}
-    drag dragElastic={1} dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
-    aria-label="Crayon"
-    client:idle
+  className="absolute bottom-5 left-5 z-50 size-16 transition-colors duration-300 disabled:pointer-events-none disabled:grayscale"
+  id="motion-crayon"
+  initial={{ x: -64, opacity: 0, filter: "grayscale(1)" }}
+  animate={{
+    transition: {
+      type: "spring",
+      ease: "easeOut",
+      delay: toolDiff,
+      duration: 0.5,
+    },
+    x: 0,
+    opacity: 1,
+    filter: "",
+  }}
+  whileHover={{ scale: 1.1, cursor: "none" }}
+  whileTap={{ scale: 0.9, rotate: 25, cursor: "none" }}
+  whileDrag={{ scale: 0.9, rotate: 25, cursor: "none" }}
+  drag
+  dragElastic={1}
+  dragConstraints={{ bottom: 0, right: 0, top: 0, left: 0 }}
+  aria-label="Crayon"
+  client:idle
 >
-    <h1 class="size-full absolute -top-16 font-parkinsans font-semibold opacity-0 text-green-400 pointer-events-none" id="crayon-label"> Drag me! </h1>
-    <Icon class="size-full -rotate-45" flip="horizontal,vertical" icon="emojione:crayon" id="crayon-icon"/>
+  <h1
+    class="pointer-events-none absolute -top-16 size-full font-parkinsans font-semibold text-green-400 opacity-0"
+    id="crayon-label"
+  >
+    Drag me!
+  </h1>
+  <Icon
+    class="size-full -rotate-45"
+    flip="horizontal,vertical"
+    icon="emojione:crayon"
+    id="crayon-icon"
+  />
 </motion.button>
 
 <script>
-import { $coloredElements, $maxColoredElements } from '../scripts/stores/coloredElements.ts';
-import { toolDiff } from '../json/animationConfig.json';
-import { animate } from "motion"
-import crayonSFX from '../assets/sound/crayon.mp3';
-const audio = new Audio(crayonSFX);
-audio.volume = 0.5;
-$maxColoredElements.set(document.querySelectorAll('.remove-grayscale:not(hidden):not(opacity-0)').length - 1);
+  import {
+    $coloredElements,
+    $maxColoredElements,
+  } from "../scripts/stores/coloredElements.ts";
+  import { toolDiff } from "../json/animationConfig.json";
+  import { animate } from "motion";
+  import crayonSFX from "../assets/sound/crayon.mp3";
+  const audio = new Audio(crayonSFX);
+  audio.volume = 0.5;
+  $maxColoredElements.set(
+    document.querySelectorAll(".remove-grayscale:not(hidden):not(opacity-0)")
+      .length - 1,
+  );
 
-let found : Element;
-let delay = false;
-const colorDelay = setInterval(() => {
+  let found: Element;
+  let delay = false;
+  const colorDelay = setInterval(() => {
     delay = false;
-}, 1000)
+  }, 1000);
 
-async function disableCrayon() {
+  async function disableCrayon() {
     await new Promise((r) => setTimeout(r, 150));
-    if($coloredElements.get() >= $maxColoredElements.get()){
-        found.setAttribute('disabled', '');
+    if ($coloredElements.get() >= $maxColoredElements.get()) {
+      found.setAttribute("disabled", "");
     }
-}
+  }
 
-let idleLabelAnim : any;
-const motionID = '#motion-crayon';
-const handleColoring = (event : Event) => {
+  let idleLabelAnim: any;
+  const motionID = "#motion-crayon";
+  const handleColoring = (event: Event) => {
     const pos = found?.getBoundingClientRect();
     const cursorDiff = 13;
     const shakeIntensity = 5;
-    const canColor : Element[] = document.elementsFromPoint(pos.right - cursorDiff*2, pos.top + cursorDiff);
-    canColor?.forEach((element : Element) => {
-        if(!delay && element.classList.contains('grayscale') && element.classList.contains('remove-grayscale')) {
-            const vh = window.innerHeight || document.documentElement.clientHeight;
-            const animX = pos.left - cursorDiff;
-            const animY = -(vh - pos.bottom) + cursorDiff
-            idleLabelAnim?.complete();
-            delay = true;
-            animate([
-                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX-shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX+shakeIntensity, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-                [motionID, {x: animX, y: animY, cursor: 'none'}, {type: "spring", ease: "easeIn", duration: 0.1}],
-            ]);
-            element.classList.remove('grayscale');
-            audio.pause();
-            audio.play();
-            $coloredElements.set($coloredElements.get() + 1);
-            disableCrayon();
-        }
+    const canColor: Element[] = document.elementsFromPoint(
+      pos.right - cursorDiff * 2,
+      pos.top + cursorDiff,
+    );
+    canColor?.forEach((element: Element) => {
+      if (
+        !delay &&
+        element.classList.contains("grayscale") &&
+        element.classList.contains("remove-grayscale")
+      ) {
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const animX = pos.left - cursorDiff;
+        const animY = -(vh - pos.bottom) + cursorDiff;
+        idleLabelAnim?.complete();
+        delay = true;
+        animate([
+          [
+            motionID,
+            { x: animX - shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX + shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX - shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX + shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX - shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX + shakeIntensity, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+          [
+            motionID,
+            { x: animX, y: animY, cursor: "none" },
+            { type: "spring", ease: "easeIn", duration: 0.1 },
+          ],
+        ]);
+        element.classList.remove("grayscale");
+        audio.pause();
+        audio.play();
+        $coloredElements.set($coloredElements.get() + 1);
+        disableCrayon();
+      }
     });
-};
+  };
 
-let idleShakeAnim : any;
-const interval = setInterval(() => {
-    const crayon = document.querySelector('#motion-crayon');
-    crayon?.addEventListener('mousemove', handleColoring);
-    crayon?.addEventListener('touchmove', handleColoring);
-    if(crayon) {found = crayon; crayon.addEventListener('mouseenter', () => {idleShakeAnim?.complete();}); crayon.addEventListener('touchstart', () => {idleShakeAnim?.complete();}); clearInterval(interval);}
-}, 200)
-
-const listener = $coloredElements.listen((cur) => {
-    if(cur < $maxColoredElements.get() && found?.hasAttribute('disabled')){
-        found.removeAttribute('disabled');
+  let idleShakeAnim: any;
+  const interval = setInterval(() => {
+    const crayon = document.querySelector("#motion-crayon");
+    crayon?.addEventListener("mousemove", handleColoring);
+    crayon?.addEventListener("touchmove", handleColoring);
+    if (crayon) {
+      found = crayon;
+      crayon.addEventListener("mouseenter", () => {
+        idleShakeAnim?.complete();
+      });
+      crayon.addEventListener("touchstart", () => {
+        idleShakeAnim?.complete();
+      });
+      clearInterval(interval);
     }
-});
+  }, 200);
 
-const handleIdle = () => {
-    if($coloredElements.get() === 0 && !found.matches(':active') && !found.hasAttribute('disabled')) {
-        idleShakeAnim = animate([
-            ['#crayon-icon', {rotate: -45}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -30}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -60}, {ease: "easeInOut"}],
-            ['#crayon-icon', {rotate: -45}, {ease: "easeInOut"}],
-        ], {duration: 6});
-        idleLabelAnim = animate([
-            ['#crayon-label', {opacity: 1, y:-20}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: -0}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: 0}, {ease: "easeInOut"}],
-            ['#crayon-label', {y: -20}, {ease: "easeInOut"}],
-            ['#crayon-label', {opacity: 0, y:0}, {ease: "easeInOut"}],
-        ], {duration: 4});
+  const listener = $coloredElements.listen((cur) => {
+    if (cur < $maxColoredElements.get() && found?.hasAttribute("disabled")) {
+      found.removeAttribute("disabled");
     }
-}
-let timeout = toolDiff*2; // seconds
-const idleAnimation = setInterval(() => {
+  });
+
+  const handleIdle = () => {
+    if (
+      $coloredElements.get() === 0 &&
+      !found.matches(":active") &&
+      !found.hasAttribute("disabled")
+    ) {
+      idleShakeAnim = animate(
+        [
+          ["#crayon-icon", { rotate: -45 }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -45 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -45 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -30 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -60 }, { ease: "easeInOut" }],
+          ["#crayon-icon", { rotate: -45 }, { ease: "easeInOut" }],
+        ],
+        { duration: 6 },
+      );
+      idleLabelAnim = animate(
+        [
+          ["#crayon-label", { opacity: 1, y: -20 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: 0 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: -20 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: -0 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: -20 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: 0 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: -20 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: 0 }, { ease: "easeInOut" }],
+          ["#crayon-label", { y: -20 }, { ease: "easeInOut" }],
+          ["#crayon-label", { opacity: 0, y: 0 }, { ease: "easeInOut" }],
+        ],
+        { duration: 4 },
+      );
+    }
+  };
+  let timeout = toolDiff * 2; // seconds
+  const idleAnimation = setInterval(() => {
     handleIdle();
     timeout *= 1.5; // dont spam....
-}, 1000 * timeout)
-
+  }, 1000 * timeout);
 </script>
-
