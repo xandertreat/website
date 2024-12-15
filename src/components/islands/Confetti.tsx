@@ -20,7 +20,7 @@ export const Component: React.FC = () => {
   }, [showConfetti]);
 
   return (
-    showConfetti &&
+    showConfetti && (
       <ConfettiExplosion
         className="absolute inset-x-1/2 inset-y-full"
         particleCount={300}
@@ -29,6 +29,7 @@ export const Component: React.FC = () => {
         width={5000}
         height={"800vh"}
       />
+    )
   );
 };
 

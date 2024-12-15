@@ -8,7 +8,8 @@ const linkTxtClass =
   "text-center pb-1 bg-gradient-to-r from-amber-400 to-amber-400 bg-[length:0%_2px] bg-bottom bg-no-repeat transition-all duration-300 ease-in-out group-hover:bg-[length:100%_2px] focus:bg-[length:100%_2px]";
 const carouselItemClass =
   "carousel-item w-full h-fit flex flex-wrap items-center justify-center gap-10 grayscale remove-grayscale";
-const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opacity-0 md:hidden";
+const mobileNavClass =
+  "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opacity-0 md:hidden";
 ---
 
 <div class="flex flex-col items-center justify-center gap-20 md:-mb-16">
@@ -47,10 +48,7 @@ const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opa
       Languages
     </span>
     <div class="flex size-full flex-row items-center justify-center">
-      <a
-        class={mobileNavClass + " mobileNavBtnL right-8"}
-        id="mobileNavPrev"
-      >
+      <a class={mobileNavClass + " mobileNavBtnL right-8"} id="mobileNavPrev">
         <Icon
           class="size-full text-black"
           icon="material-symbols-light:arrow-left"
@@ -121,10 +119,7 @@ const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opa
           <TooltipIcon tooltip="Trello" icon="logos:trello" />
         </div>
       </div>
-      <a
-        class={mobileNavClass + " mobileNavBtnR left-8"}
-        id="mobileNavNext"
-      >
+      <a class={mobileNavClass + " mobileNavBtnR left-8"} id="mobileNavNext">
         <Icon
           class="size-full text-black"
           icon="material-symbols-light:arrow-right"
@@ -158,10 +153,8 @@ const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opa
   const capitalizeFirstLetter = (str: string) =>
     str ? str.charAt(0).toUpperCase() + str.slice(1).toLowerCase() : "";
   const updateNavigation = (dir: "prev" | "next") => {
-    if (dir === "prev")
-      currentIdx = mod(--currentIdx, navigation.length);
-    else
-      currentIdx = mod(++currentIdx, navigation.length);
+    if (dir === "prev") currentIdx = mod(--currentIdx, navigation.length);
+    else currentIdx = mod(++currentIdx, navigation.length);
 
     if (navLbl?.textContent)
       navLbl.textContent = capitalizeFirstLetter(
@@ -177,11 +170,11 @@ const mobileNavClass = "btn btn-circle btn-sm relative bottom-20 bg-gray-200 opa
   navNextBtn?.addEventListener("mousedown", () => updateNavigation("next"));
 
   const dur = 1.5;
-setTimeout(() => {
+  setTimeout(() => {
     animate("#mobileNavLabel", { opacity: 1, y: 10 }, { duration: dur });
     animate(".galleryNavigation", { opacity: 1, y: 10 }, { duration: dur });
     animate(".galleryDisplay", { opacity: 1, y: -10 }, { duration: dur });
     animate("#mobileNavPrev", { opacity: 1, x: 10 }, { duration: dur });
     animate("#mobileNavNext", { opacity: 1, x: -10 }, { duration: dur });
-}, linksDiff * 1000);
+  }, linksDiff * 1000);
 </script>
