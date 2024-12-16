@@ -51,4 +51,5 @@ jobs:
           curl -X POST \
             -H "Authorization: bearerAuth ${{ secrets.COOLIFY_AUTH_TOKEN }}" \
             -H "Content-Type: application/json" \
-            "${{ secrets.COOLIFY_URL }}&bearerAuth=${{ secrets.COOLIFY_AUTH_TOKEN }}"
+            -D "bearerAuth=${{ secrets.COOLIFY_AUTH_TOKEN }}" \
+            "${{ secrets.COOLIFY_URL }}"
