@@ -48,8 +48,7 @@ jobs:
 
       - name: Deploy
         run: |
-          curl -X POST \
+          curl -v -X POST \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_AUTH_TOKEN }}" \
             -H "Content-Type: application/json" \
-            -D "bearerAuth=${{ secrets.COOLIFY_AUTH_TOKEN }}" \
             "${{ secrets.COOLIFY_URL }}"
