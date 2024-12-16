@@ -43,12 +43,12 @@ jobs:
       - name: Test server (netcat)
         run: nc -zv localhost 4321
 
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Prep deployment
+        uses: actions/checkout@v4.2.2
 
-      - name: Coolify Deployment
+      - name: Deploy
         run: |
           curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_AUTH_TOKEN }}" \
+            -H "Authorization: bearerAuth ${{ secrets.COOLIFY_AUTH_TOKEN }}" \
             -H "Content-Type: application/json" \
-            "${{ secrets.COOLIFY_URL }}"
+            "${{ secrets.COOLIFY_URL }}&bearerAuth=${{ secrets.COOLIFY_AUTH_TOKEN }}"
