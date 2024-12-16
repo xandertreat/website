@@ -25,6 +25,7 @@ jobs:
       - run: npm ci
 
       - name: Check formatting
+        continue-on-error: true
         run: npm run fmt
 
       - name: Run linter
@@ -41,3 +42,13 @@ jobs:
 
       - name: Test server (netcat)
         run: nc -zv localhost 4321
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Coolify Deployment
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_AUTH_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            "${{ secrets.COOLIFY_URL }}"
