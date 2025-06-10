@@ -1,6 +1,6 @@
 import { defineConfig } from "@solidjs/start/config";
 import tailwindcss from "@tailwindcss/vite";
-import Icons from "unplugin-icons/vite";
+import unpluginicons from "unplugin-icons/vite";
 
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,7 +15,14 @@ export default defineConfig({
 		},
 	},
 	vite: {
-		plugins: [tailwindcss(), Icons({ compiler: "solid", autoInstall: true })],
+		plugins: [
+			tailwindcss(),
+			unpluginicons({
+				defaultClass: "size-full",
+				compiler: "solid",
+				autoInstall: true,
+			}),
+		],
 		server: {
 			allowedHosts: ["127.0.0.1", "localhost", "0.0.0.0"],
 		},
