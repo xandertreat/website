@@ -1,3 +1,4 @@
-# Xander Treat's Personal Website
+# Xander Treat's Website
 
-Built using Astro, TypeScript, and some React
+Just my personal website, nothing special
+Made using SolidStart SSG
