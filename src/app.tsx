@@ -1,12 +1,12 @@
 import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense } from "solid-js";
+import { NoHydration } from "solid-js/web";
 
 import "~/styles/tailwind.css";
 
 export default function App() {
 	return (
-		<Router root={(props) => <Suspense>{props.children}</Suspense>}>
+		<Router root={(props) => <NoHydration>{props.children}</NoHydration>}>
 			<FileRoutes />
 		</Router>
 	);
