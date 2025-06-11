@@ -1,14 +1,14 @@
 {
-	"name": "example-with-tailwindcss",
-	"type": "module",
+	"name": "xtreat-website",
+	"private": true,
 	"scripts": {
-		"dev": "vinxi dev",
 		"build": "vinxi build",
-		"start": "vinxi start",
-		"preview": "vinxi build; vinxi start",
+		"ci": "bun biome ci; bun tsc; bun run build;",
+		"dev": "vinxi dev",
 		"lint": "biome check; bun tsc",
 		"lint:fix": "biome check --write; bun tsc",
-		"ci": "bun biome ci; bun tsc; bun run build;"
+		"preview": "vinxi build; vinxi start",
+		"start": "vinxi start"
 	},
 	"dependencies": {
 		"@biomejs/biome": "^1.9.4",
@@ -33,5 +33,6 @@
 	"engines": {
 		"node": ">=22"
 	},
-	"trustedDependencies": ["@parcel/watcher", "@tailwindcss/oxide"]
+	"trustedDependencies": ["@parcel/watcher", "@tailwindcss/oxide"],
+	"type": "module"
 }

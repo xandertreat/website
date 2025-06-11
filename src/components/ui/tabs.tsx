@@ -85,7 +85,9 @@ function Tabs(props: { children: JSX.Element }) {
 			}}
 		>
 			<span class="inline-flex gap-3">{props.children}</span>
-			<div class="h-12">{currentTabContent()}</div>
+			<div class="w-[66vw] text-xs md:text-sm lg:text-base">
+				{currentTabContent()}
+			</div>
 		</TabContext.Provider>
 	);
 }
