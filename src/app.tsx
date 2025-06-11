@@ -1,26 +1,28 @@
-import {
-	redirect,
-	Route,
-	Router,
-	type RouteSectionProps,
-} from "@solidjs/router";
+import { Route, Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
-import { Suspense } from "solid-js/web";
+import type { Component } from "solid-js";
+import { Suspense, isServer } from "solid-js/web";
 
+// Styles
 import "~/styles/tailwind.css";
 
-const Redirect = (props: RouteSectionProps<{ href: string | URL }>) => (
-	<>{redirect(props.data.href.toString())}</>
+// Routing
+const Redirect = (props: { to: string | URL; path: string }) => (
+	<Route
+		component={
+			(() =>
+				!isServer && window.location.assign(props.to.toString())) as Component
+		}
+		path={props.path}
+	/>
 );
 
 export default function App() {
 	return (
 		<Router root={(props) => <Suspense>{props.children}</Suspense>}>
-			<Route
-				component={Redirect}
-				info={{ href: "ttg.xtreat.dev" }}
-				path={"/ttg"}
-			/>
+			{/* Redirects */}
+			<Redirect path="ttg" to="https://ttg.xtreat.dev" />
+			{/* Routes */}
 			<FileRoutes />
 		</Router>
 	);

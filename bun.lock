@@ -12,7 +12,10 @@
       },
       "devDependencies": {
         "@iconify-json/devicon": "^1.2.28",
+        "@iconify-json/fa": "^1.2.1",
         "@iconify-json/mdi": "^1.2.3",
+        "@iconify-json/tabler": "^1.2.19",
+        "@solid-primitives/storage": "^4.3.2",
         "@tailwindcss/vite": "^4.0.7",
         "clsx": "^2.1.1",
         "daisyui": "^5.0.43",
@@ -153,7 +156,11 @@
 
     "@iconify-json/devicon": ["@iconify-json/devicon@1.2.28", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-o6NovL2k+vd7amkQQ8XC6zpXQ8hyY7iKgv7RT8UHGXOW6kTpQuP7cEZ6ejOLcIRz3Z7s9+cCIcmPEPQ8yH2YdQ=="],
 
+    "@iconify-json/fa": ["@iconify-json/fa@1.2.1", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-aY2+tQNWq5ch+ShtAz3KKbNrFfwf4BPrXvyN7S4/lcf6Wms+kIxsd7C7KortzHZhoBnbhVN+qo+YUWLW7rLs9Q=="],
+
     "@iconify-json/mdi": ["@iconify-json/mdi@1.2.3", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg=="],
+
+    "@iconify-json/tabler": ["@iconify-json/tabler@1.2.19", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-JDeQTQxHD8KE12pAbPVHX1WFVOPq8D0XfRb/LwYHwGwYE0HP9OIjJ//TKxS1Gt++RirYu6Xsx+Jm5LA5KbykoA=="],
 
     "@iconify/types": ["@iconify/types@2.0.0", "", {}, "sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg=="],
 
@@ -312,6 +319,10 @@
     "@sindresorhus/is": ["@sindresorhus/is@7.0.2", "", {}, "sha512-d9xRovfKNz1SKieM0qJdO+PQonjnnIfSNWfHYnBSJ9hkjm0ZPw6HlxscDXYstp3z+7V2GOFHc+J0CYrYTjqCJw=="],
 
     "@sindresorhus/merge-streams": ["@sindresorhus/merge-streams@2.3.0", "", {}, "sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg=="],
+
+    "@solid-primitives/storage": ["@solid-primitives/storage@4.3.2", "", { "dependencies": { "@solid-primitives/utils": "^6.3.1" }, "peerDependencies": { "@tauri-apps/plugin-store": "*", "solid-js": "^1.6.12" }, "optionalPeers": ["@tauri-apps/plugin-store"] }, "sha512-Vkuk/AqgUOjz6k7Mo5yDFQBQg8KMQcZfaac/bxLApaza3e5c/iNllNvxZWPM9Vf+Gf4m5SgRbvgsm6dSLJ27Jw=="],
+
+    "@solid-primitives/utils": ["@solid-primitives/utils@6.3.1", "", { "peerDependencies": { "solid-js": "^1.6.12" } }, "sha512-4/Z59nnwu4MPR//zWZmZm2yftx24jMqQ8CSd/JobL26TPfbn4Ph8GKNVJfGJWShg1QB98qObJSskqizbTvcLLA=="],
 
     "@solidjs/router": ["@solidjs/router@0.15.3", "", { "peerDependencies": { "solid-js": "^1.8.6" } }, "sha512-iEbW8UKok2Oio7o6Y4VTzLj+KFCmQPGEpm1fS3xixwFBdclFVBvaQVeibl1jys4cujfAK5Kn6+uG2uBm3lxOMw=="],
 

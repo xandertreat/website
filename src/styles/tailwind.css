@@ -16,6 +16,9 @@
 	--breakpoint-uhd: 4000px; /* UHD (4 K) */
 }
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant system (&:where([data-theme="system"], [data-theme="system"] *));
+
 /* daisyUI */
 @plugin "daisyui" {
 	themes: false;
@@ -24,7 +27,7 @@
 @plugin "daisyui/theme" {
 	name: "light";
 	default: true;
-	color-scheme: "light";
+	color-scheme: light;
 	--color-base-100: oklch(100% 0 0);
 	--color-base-200: oklch(97% 0 0);
 	--color-base-300: oklch(94% 0 0);
@@ -57,7 +60,7 @@
 
 @plugin "daisyui/theme" {
 	name: "dark";
-	color-scheme: "dark";
+	color-scheme: dark;
 	--color-base-100: oklch(25.33% 0.016 252.42);
 	--color-base-200: oklch(23.26% 0.014 253.1);
 	--color-base-300: oklch(21.15% 0.012 254.09);
@@ -89,8 +92,6 @@
 }
 
 /* daisyUI 'system theme' fix */
-
-/* I don't know how this works, sorry. */
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme]),
 	:root[data-theme="system"] {

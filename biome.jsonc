@@ -1,56 +1,57 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"vcs": {
-		"enabled": false,
-		"clientKind": "git",
-		"useIgnoreFile": false
+	"assists": {
+		"actions": {
+			"source": {
+				"sortJsxProps": "on",
+				"useSortedKeys": "on"
+			}
+		}
+	},
+	"css": {
+		"formatter": { "enabled": true },
+		"linter": { "enabled": false }
 	},
 	"files": {
-		"ignoreUnknown": false,
-		"ignore": ["app.config.*.js", ".output", "node_modules", ".vinxi"]
+		"ignore": ["app.config.*.js", ".output", "node_modules", ".vinxi"],
+		"ignoreUnknown": false
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
-	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"assists": {
-		"actions": {
-			"source": {
-				"sortJsxProps": "on"
-			}
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"nursery": {
-				"useSortedClasses": {
-					"level": "error",
-					"fix": "safe",
-					"options": {
-						"attributes": ["class", "classList"]
-					}
-				}
-			},
-			"correctness": {
-				"noUnusedImports": "error"
-			},
-			"style": {
-				"noNonNullAssertion": "off" // we need to sometimes
-			}
-		}
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
 		}
 	},
-	"css": {
-		"linter": { "enabled": true },
-		"formatter": { "enabled": true }
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"correctness": {
+				"noUnusedImports": "error"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"fix": "safe",
+					"level": "error",
+					"options": {
+						"attributes": ["class", "classList"]
+					}
+				}
+			},
+			"recommended": true,
+			"style": {
+				"noNonNullAssertion": "off" // we need to sometimes
+			}
+		}
+	},
+	"organizeImports": {
+		"enabled": true
+	},
+	"vcs": {
+		"clientKind": "git",
+		"enabled": false,
+		"useIgnoreFile": false
 	}
 }
