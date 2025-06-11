@@ -27,7 +27,7 @@ export default function Links() {
 				href={String(props.to)}
 				target="_blank"
 			>
-				<span class=" motion-duration-75 motion-ease-in-out group-hover:motion-scale-in motion-scale-out-0 group-hover:motion-opacity-in-50 -translate-x-1/2 -bottom-[125%] absolute left-1/2 rounded border border-neutral-content bg-neutral px-1 text-center text-neutral-content">
+				<span class="motion-duration-75 motion-ease-in-out group-hover:motion-scale-in motion-scale-out-50 motion-opacity-out-0 group-hover:motion-opacity-in-50 -translate-x-1/2 -bottom-[125%] absolute left-1/2 rounded-full border-2 border-neutral bg-accent px-2 pb-0.5 text-center text-accent-content">
 					{props.tip}
 				</span>
 				{props.children}
@@ -37,7 +37,7 @@ export default function Links() {
 	return (
 		<span class="inline-flex items-center justify-between gap-2.5">
 			<Link delay={1000} tip="GitHub" to={links.github}>
-				<GitHubIcon class="size-full text-purple-700 dark:text-purple-500" />
+				<GitHubIcon class="size-full system:text-info text-purple-700 dark:text-purple-500" />
 			</Link>
 			<Link delay={1100} tip="npm" to={links.npm}>
 				<NpmIcon />

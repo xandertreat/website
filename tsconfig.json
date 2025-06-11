@@ -1,19 +1,19 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "bundler",
+		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
+		"isolatedModules": true,
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",
-		"allowJs": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
 		"noEmit": true,
-		"strict": true,
-		"types": ["vinxi/types/client", "node", "unplugin-icons/types/solid"],
-		"isolatedModules": true,
 		"paths": {
 			"~/*": ["./src/*"]
-		}
+		},
+		"strict": true,
+		"target": "ESNext",
+		"types": ["vinxi/types/client", "node", "unplugin-icons/types/solid"]
 	}
 }
