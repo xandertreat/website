@@ -78,11 +78,11 @@ export default function Project(props: ProjectProps) {
 
 	const Details = () => (
 		<>
-			<h2 class="flex flex-col font-semibold text-xl">
+			<h2 class="inline-flex items-baseline justify-center gap-1.5 text-center font-semibold text-xl transition-colors duration-150 ease-in-out group-hover:text-info">
 				{props.title}
 				<Show when={props.url}>
 					<a
-						class="link lg:link-hover inline-flex hd:hidden w-min text-neutral text-xs opacity-60"
+						class="link lg:link-hover -mt-1.5 inline-flex w-min font-semibold text-xs opacity-60 "
 						href={props.url}
 						onClick={(e) => e.stopPropagation()}
 					>
@@ -111,7 +111,7 @@ export default function Project(props: ProjectProps) {
 
 	return (
 		<button
-			class="hover:-translate-y-[2%] w-full cursor-pointer transition-transform duration-150 ease-in-out"
+			class="hover:-translate-y-[2%] w-full cursor-pointer transition duration-150 ease-in-out lg:grayscale lg:hover:grayscale-0"
 			onClick={() => {
 				if (props.url) {
 					const a = document.createElement("a");
@@ -125,7 +125,7 @@ export default function Project(props: ProjectProps) {
 			type="button"
 		>
 			<span
-				class={`group motion-duration-300 motion-blur-in motion-ease-in-out motion-preset-slide-down relative isolate flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg ${delays[props.delay ?? 0]} hd:grayscale transition-colors duration-150 ease-in-out hover:border-info hover:text-info hover:shadow-sm hd:hover:grayscale-0`}
+				class={`group motion-duration-300 motion-blur-in motion-ease-in-out motion-preset-slide-down relative isolate flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg ${delays[props.delay ?? 0]} transition-[border-color,box-shadow] duration-150 ease-in-out hover:border-info hover:shadow-sm `}
 				ref={container}
 			>
 				<div

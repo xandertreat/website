@@ -5,7 +5,7 @@ import NpmIcon from "~icons/devicon/npm";
 import GitHubIcon from "~icons/fa/github-square";
 import LinkedInIcon from "~icons/fa/linkedin-square";
 
-export default function Links() {
+export default function Links(props: { class?: string }) {
 	interface LinkProps {
 		to: string | URL;
 		tip?: string;
@@ -22,20 +22,20 @@ export default function Links() {
 
 		return (
 			<A
-				class={`tooltip-info motion-blur-in-xs motion-opacity-in-0 motion-duration-500 motion-translate-y-in-50 motion-ease-in-out group *:group-hover:-translate-y-0.5 relative isolate z-50 size-7 select-none transition-[filter] hd:*:grayscale *:transition-[translate,filter] *:duration-200 hd:*:group-hover:grayscale-0 ${delays[props.delay ?? 0]}`}
+				class={`tooltip tooltip-info motion-blur-in-xs motion-opacity-in-0 motion-duration-500 motion-preset-slide-down motion-ease-in-out group *:group-hover:-translate-y-0.25 relative isolate z-50 size-7 select-none transition-[filter] hd:*:grayscale *:transition-[translate,filter] *:duration-200 hd:*:group-hover:grayscale-0 ${delays[props.delay ?? 0]}`}
+				data-tip={props.tip}
 				draggable={false}
 				href={String(props.to)}
 				target="_blank"
 			>
-				<span class="motion-duration-75 motion-ease-in-out group-hover:motion-scale-in motion-scale-out-50 motion-opacity-out-0 group-hover:motion-opacity-in-50 -translate-x-1/2 -bottom-[125%] pointer-events-none absolute left-1/2 z-1 rounded-full border-[1.5px] border-neutral bg-accent px-2 pb-0.5 text-center text-accent-content">
-					{props.tip}
-				</span>
 				{props.children}
 			</A>
 		);
 	}
 	return (
-		<span class="inline-flex items-center justify-between gap-2.5">
+		<span
+			class={`inline-flex items-center justify-between gap-2.5 ${props.class}`}
+		>
 			<Link delay={1000} tip="GitHub" to={links.github}>
 				<GitHubIcon class="size-full hd:system:text-info text-purple-700 dark:text-purple-500" />
 			</Link>

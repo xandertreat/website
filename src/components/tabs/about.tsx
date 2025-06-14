@@ -16,7 +16,7 @@ export default function About() {
 					user experience. <br />
 					<strong>
 						<a class="link" href="mailto:xander.treat@gmail.com">
-							contact me
+							Contact me
 						</a>
 					</strong>
 				</p>
