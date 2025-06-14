@@ -1,15 +1,15 @@
-import { Show, type JSX } from "solid-js";
-import type { Badges } from "~/data/projects";
-import IconAstro from "~icons/devicon/astro";
-import IconSolid from "~icons/devicon/solidjs";
-import IconJSX from "~icons/devicon/react";
-import IconTailwind from "~icons/devicon/tailwindcss";
-import IconPython from "~icons/devicon/python";
-import IconTS from "~icons/devicon/typescript";
 import {
 	createPositionToElement,
 	useMousePosition,
 } from "@solid-primitives/mouse";
+import { type JSX, Show } from "solid-js";
+import type { Badges } from "~/data/projects";
+import IconAstro from "~icons/devicon/astro";
+import IconPython from "~icons/devicon/python";
+import IconJSX from "~icons/devicon/react";
+import IconSolid from "~icons/devicon/solidjs";
+import IconTailwind from "~icons/devicon/tailwindcss";
+import IconTS from "~icons/devicon/typescript";
 
 interface ProjectProps {
 	url?: string;
