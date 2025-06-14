@@ -26,6 +26,7 @@ export default function Links(props: { class?: string }) {
 				data-tip={props.tip}
 				draggable={false}
 				href={String(props.to)}
+				onMouseEnter={(e) => e.target.classList.remove("hd:*:grayscale")}
 				target="_blank"
 			>
 				{props.children}
@@ -37,7 +38,7 @@ export default function Links(props: { class?: string }) {
 			class={`inline-flex items-center justify-between gap-2.5 ${props.class}`}
 		>
 			<Link delay={1000} tip="GitHub" to={links.github}>
-				<GitHubIcon class="size-full hd:system:text-info text-purple-700 dark:text-purple-500" />
+				<GitHubIcon class="size-full not-light:text-purple-500 text-purple-700" />
 			</Link>
 			<Link delay={1100} tip="npm" to={links.npm}>
 				<NpmIcon />

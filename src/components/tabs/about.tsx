@@ -15,7 +15,10 @@ export default function About() {
 					<br /> with a particular emphasis on modern front-end technologies and
 					user experience. <br />
 					<strong>
-						<a class="link" href="mailto:xander.treat@gmail.com">
+						<a
+							class="link font-light opacity-60"
+							href="mailto:xander.treat@gmail.com"
+						>
 							Contact me
 						</a>
 					</strong>
