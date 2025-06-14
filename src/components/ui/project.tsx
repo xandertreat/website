@@ -142,7 +142,7 @@ export default function Project(props: ProjectProps) {
 				ref={container}
 			>
 				<div
-					class="-translate-x-1/2 -translate-y-1/2 absolute z-[-1] size-72 rounded-full bg-radial from-white/10 light:from-black/10 light:via-black/0 via-white/0 to-transparent transition-opacity duration-150 ease-in-out"
+					class="-translate-x-1/2 -translate-y-1/2 absolute z-[-1] hidden size-72 rounded-full bg-radial from-white/10 light:from-black/10 light:via-black/0 via-white/0 to-transparent transition-opacity duration-150 ease-in-out lg:block"
 					style={{
 						left: `${relativePos.x}px`,
 						top: `${relativePos.y}px`,
