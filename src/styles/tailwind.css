@@ -16,6 +16,7 @@
 	--breakpoint-uhd: 4000px; /* UHD (4 K) */
 }
 
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @custom-variant system (&:where([data-theme="system"], [data-theme="system"] *));
 

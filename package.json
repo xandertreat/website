@@ -1,17 +1,7 @@
 {
-	"name": "xtreat-website",
-	"private": true,
-	"scripts": {
-		"build": "vinxi build",
-		"ci": "bun biome ci; bun tsc; bun run build;",
-		"dev": "vinxi dev",
-		"lint": "biome check; bun tsc",
-		"lint:fix": "biome check --write; bun tsc",
-		"preview": "vinxi build; vinxi start",
-		"start": "vinxi start"
-	},
 	"dependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@solid-primitives/mouse": "^2.1.2",
 		"@solidjs/router": "^0.15.0",
 		"@solidjs/start": "^1.1.0",
 		"solid-js": "^1.9.5",
@@ -32,6 +22,17 @@
 	},
 	"engines": {
 		"node": ">=22"
+	},
+	"name": "xtreat-website",
+	"private": true,
+	"scripts": {
+		"build": "vinxi build",
+		"ci": "bun biome ci; bun tsc; bun run build;",
+		"dev": "vinxi dev",
+		"lint": "biome check; bun tsc",
+		"lint:fix": "biome check --write; bun tsc",
+		"preview": "vinxi build; vinxi start",
+		"start": "vinxi start"
 	},
 	"trustedDependencies": ["@parcel/watcher", "@tailwindcss/oxide"],
 	"type": "module"
