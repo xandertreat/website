@@ -136,7 +136,7 @@ export default function Project(props: ProjectProps) {
 			<span
 				class={`group motion-duration-300 motion-ease-in-out relative isolate ${delays[props.delay ?? 0]} flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg transition-[border-color,box-shadow] duration-150 ease-in-out hover:border-info hover:shadow-sm `}
 				classList={{
-					"motion-preset-slide-down lg:motion-preset-slide-right motion-blur-in":
+					"max-lg:motion-preset-slide-down lg:motion-preset-slide-right-sm motion-blur-in":
 						shouldAnimate(),
 				}}
 				ref={container}
