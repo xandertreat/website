@@ -2,7 +2,7 @@ import {
 	createPositionToElement,
 	useMousePosition,
 } from "@solid-primitives/mouse";
-import { type JSX, Show } from "solid-js";
+import { createEffect, createSignal, type JSX, Show } from "solid-js";
 import type { Badges } from "~/data/projects";
 import IconAstro from "~icons/devicon/astro";
 import IconPython from "~icons/devicon/python";
@@ -10,6 +10,7 @@ import IconJSX from "~icons/devicon/react";
 import IconSolid from "~icons/devicon/solidjs";
 import IconTailwind from "~icons/devicon/tailwindcss";
 import IconTS from "~icons/devicon/typescript";
+import { useTabContext } from "./tabs";
 
 interface ProjectProps {
 	url?: string;
@@ -20,8 +21,15 @@ interface ProjectProps {
 	children?: JSX.Element;
 }
 
-// TODO: animate only once
 export default function Project(props: ProjectProps) {
+	const [shouldAnimate, setShouldAnimate] = createSignal(true);
+	const { open } = useTabContext();
+	createEffect((prev) => {
+		const isOpen = open();
+		if (!isOpen && prev) setShouldAnimate(false);
+		return isOpen;
+	});
+
 	const delays: Record<number, string> = {
 		0: "",
 		200: "motion-delay-200",
@@ -122,14 +130,19 @@ export default function Project(props: ProjectProps) {
 					a.remove();
 				}
 			}}
+			onMouseEnter={(e) => e.target.classList.remove("lg:grayscale")}
 			type="button"
 		>
 			<span
-				class={`group motion-duration-300 motion-blur-in motion-ease-in-out motion-preset-slide-down relative isolate flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg ${delays[props.delay ?? 0]} transition-[border-color,box-shadow] duration-150 ease-in-out hover:border-info hover:shadow-sm `}
+				class={`group motion-duration-300 motion-ease-in-out relative isolate ${delays[props.delay ?? 0]} flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg transition-[border-color,box-shadow] duration-150 ease-in-out hover:border-info hover:shadow-sm `}
+				classList={{
+					"motion-preset-slide-down lg:motion-preset-slide-right motion-blur-in":
+						shouldAnimate(),
+				}}
 				ref={container}
 			>
 				<div
-					class="-translate-x-1/2 -translate-y-1/2 absolute z-[-1] size-72 rounded-full bg-radial from-white/10 light:from-black/10 light:via-black/0 via-white/0 to-transparent opacity-0 transition-opacity duration-150 ease-in-out group-hover:opacity-100"
+					class="-translate-x-1/2 -translate-y-1/2 absolute z-[-1] size-72 rounded-full bg-radial from-white/10 light:from-black/10 light:via-black/0 via-white/0 to-transparent transition-opacity duration-150 ease-in-out"
 					style={{
 						left: `${relativePos.x}px`,
 						top: `${relativePos.y}px`,

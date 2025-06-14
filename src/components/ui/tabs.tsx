@@ -12,19 +12,31 @@ import {
 } from "solid-js";
 import { type SetStoreFunction, createStore } from "solid-js/store";
 
-interface TabContent {
+interface TabContainer {
 	[id: string]: JSX.Element;
 }
 
-interface TabContextProps {
-	tabs: TabContent;
-	setTabs: SetStoreFunction<TabContent>;
+interface TabsContext {
+	tabs: TabContainer;
+	setTabs: SetStoreFunction<TabContainer>;
 	currentTab: Accessor<string>;
 	setCurrentTab: Setter<string>;
 }
-const TabContext = createContext<TabContextProps>();
+const TabsContext = createContext<TabsContext>();
 
-function useTabContext() {
+function useTabsContext() {
+	const ctx = useContext(TabsContext);
+	if (!ctx)
+		throw new Error("TabContext must be used within a <TabContext.Provider />");
+	return ctx;
+}
+
+interface TabContext {
+	open: Accessor<boolean>;
+}
+const TabContext = createContext<TabContext>();
+
+export function useTabContext() {
 	const ctx = useContext(TabContext);
 	if (!ctx)
 		throw new Error("TabContext must be used within a <TabContext.Provider />");
@@ -35,26 +47,28 @@ export function Tab(props: {
 	id: string;
 	children?: JSX.Element;
 }) {
-	const { currentTab, setCurrentTab } = useTabContext();
+	const { currentTab, setCurrentTab } = useTabsContext();
 	const isCurrentTab = createMemo(() => props.id === currentTab());
 
 	return (
-		<A
-			class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat transition-all duration-200 hover:bg-size-[100%_1px] "
-			classList={{
-				"from-info/50 to-info/50 hover:text-info/50 active:from-info active:to-info active:hover:text-info":
-					!isCurrentTab(),
-				"bg-size-[100%_1px] from-info to-info text-info": isCurrentTab(),
-			}}
-			href={`#${props.id}`}
-			onClick={() => setCurrentTab(props.id)}
-			type="button"
-		>
-			<span class="inline-flex items-center justify-center gap-0.5 px-1 py-0.5 font-extralight">
-				{props.children}
-				<p>{props.id}</p>
-			</span>
-		</A>
+		<TabContext.Provider value={{ open: () => currentTab() === props.id }}>
+			<A
+				class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat transition-all duration-200 hover:bg-size-[100%_1px] "
+				classList={{
+					"from-info/50 to-info/50 hover:text-info/50 active:from-info active:to-info active:hover:text-info":
+						!isCurrentTab(),
+					"bg-size-[100%_1px] from-info to-info text-info": isCurrentTab(),
+				}}
+				href={`#${props.id}`}
+				onClick={() => setCurrentTab(props.id)}
+				type="button"
+			>
+				<span class="inline-flex items-center justify-center gap-0.5 px-1 py-0.5 font-extralight">
+					{props.children}
+					<p>{props.id}</p>
+				</span>
+			</A>
+		</TabContext.Provider>
 	);
 }
 
@@ -62,14 +76,21 @@ function Content(props: {
 	for: string;
 	children?: JSX.Element;
 }) {
-	const { setTabs } = useTabContext();
-	onMount(() => setTabs(props.for, props.children));
+	const { setTabs, currentTab } = useTabsContext();
+
+	onMount(() =>
+		setTabs(props.for, () => (
+			<TabContext.Provider value={{ open: () => currentTab() === props.for }}>
+				{props.children}
+			</TabContext.Provider>
+		)),
+	);
 
 	return <></>;
 }
 
 function Tabs(props: { children: JSX.Element }) {
-	const [tabs, setTabs] = createStore<TabContent>();
+	const [tabs, setTabs] = createStore<TabContainer>();
 	const [currentTab, setCurrentTab] = createSignal("");
 	const currentTabContent = createMemo(() => tabs?.[currentTab()]);
 
@@ -89,7 +110,7 @@ function Tabs(props: { children: JSX.Element }) {
 	});
 
 	return (
-		<TabContext.Provider
+		<TabsContext.Provider
 			value={{
 				tabs,
 				setTabs,
@@ -101,7 +122,7 @@ function Tabs(props: { children: JSX.Element }) {
 			<div class="fhd:w-[33vw] hd:w-[44vw] w-[66vw] lg:mt-3">
 				{currentTabContent()}
 			</div>
-		</TabContext.Provider>
+		</TabsContext.Provider>
 	);
 }
 
