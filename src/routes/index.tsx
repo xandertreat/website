@@ -18,7 +18,7 @@ export default function Index() {
 					<h1 class="motion-preset-slide-down relative text-nowrap font-semibold text-3xl">
 						Xander Treat
 						<AppThemeSwitcher
-							class="tooltip tooltip-info btn btn-ghost btn-circle motion-duration-500 motion-ease-in-out motion-delay-600 -top-1 -right-5.5 absolute size-5 lg:grayscale"
+							class="tooltip-bottom xs:tooltip-top tooltip tooltip-info btn btn-ghost btn-circle motion-duration-500 motion-ease-in-out motion-delay-600 -top-1 -right-5.5 absolute size-5 lg:grayscale"
 							onMouseEnter={(e) => e.target.classList.remove("lg:grayscale")}
 						/>
 					</h1>

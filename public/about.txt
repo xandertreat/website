@@ -1,6 +1,0 @@
-This favicon was generated using the following font:
-
-- Font Title: Parkinsans
-- Font Author: undefined
-- Font Source: https://fonts.gstatic.com/s/parkinsans/v2/-W_uXJXvQyPb1QfpBpRrVEgjj0W4zSUk4gRW7h8K-8Z_dt-E.ttf
-- Font License: undefined)
