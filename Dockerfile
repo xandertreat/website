@@ -36,15 +36,14 @@ RUN --mount=type=cache,target=/root/.bun \
 
 COPY . .
 
-# CI pipeline for safety
+# CI pipeline (build)
 RUN bun ci
-
-# Build
-RUN bun run build
 
 # Non‑root user for security
 RUN addgroup --system app \
     && adduser --system --ingroup app app
 USER app
+
+# Launch
 
 CMD ["node", ".output/server/index.mjs"]
