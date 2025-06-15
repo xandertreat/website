@@ -6,6 +6,10 @@ export type Badges = Partial<{
 	vite: boolean;
 	typescript: boolean;
 	python: boolean;
+	npm: boolean;
+	ci: boolean;
+	docker: boolean;
+	nixpacks: boolean;
 }>;
 
 interface Project {
@@ -20,35 +24,51 @@ const data: Project[] = [
 		name: "Textual Theme Generator",
 		url: "https://ttg.xtreat.dev",
 		description:
-			"A local-first client-side statically generated reactive & performant web application to help developers create & visualize themes for their Python Textual terminal user interface apps",
+			"Architected a local-first, statically-generated web app that lets developers design, live-preview, and export terminal UI themes for Python’s Textual framework—instant feedback, zero server overhead.",
 		badges: {
 			typescript: true,
 			solid: true,
 			jsx: true,
 			tailwind: true,
 			python: true,
+			docker: true,
+			ci: true,
 		},
 	},
 	{
 		name: "Astro Iconify",
 		url: "https://www.npmjs.com/package/@xtreat/astro-iconify",
 		description:
-			"A on-demand iconify icon component designed for dynamicism, utilziing Astro component's server first nature, ideal for SSG set-up projects",
-		badges: {
-			typescript: true,
-			astro: true,
-		},
+			"Authored and maintain a build-time Iconify component that tree-shakes SVGs inside Astro, improving developer experience and allowing for dynamicism strategies.",
+		badges: { typescript: true, astro: true, npm: true, ci: true },
 	},
 	{
-		name: "Friend's Website",
+		name: "BrandonDorsey.com",
 		url: "https://brandondorsey.com",
 		description:
-			"A site I created and collaboratively designed for a friend, using Astro.js for static site generation and media optimization for hosting, with Solid.js for client-side hydrated islands using Framer Motion",
+			"Delivered a pilot's personal website with perfect Core Web Vitals: image CDN optimisation, utilizing static-site generation and hydration, and a photo gallery that scales with new media.",
 		badges: {
 			typescript: true,
 			astro: true,
 			tailwind: true,
 			solid: true,
+			nixpacks: true,
+			ci: true,
+		},
+	},
+	{
+		name: "xtreat.dev (Personal Site)",
+		url: "https://xtreat.dev",
+		description:
+			"Engineered a SolidStart static site with custom components and advanced routing that scores 100/100 on PageSpeed Insights; orchestrated zero-downtime CI/CD via Coolify using Docker and Nixpacks images.",
+		badges: {
+			solid: true,
+			typescript: true,
+			tailwind: true,
+			vite: true,
+			nixpacks: true,
+			docker: true,
+			ci: true,
 		},
 	},
 ];

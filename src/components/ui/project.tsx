@@ -2,14 +2,18 @@ import {
 	createPositionToElement,
 	useMousePosition,
 } from "@solid-primitives/mouse";
-import { createEffect, createSignal, type JSX, Show } from "solid-js";
+import { type JSX, Show, createEffect, createSignal } from "solid-js";
 import type { Badges } from "~/data/projects";
 import IconAstro from "~icons/devicon/astro";
+import IconDocker from "~icons/devicon/docker";
+import IconCI from "~icons/devicon/githubactions";
+import IconNPM from "~icons/devicon/npm";
 import IconPython from "~icons/devicon/python";
 import IconJSX from "~icons/devicon/react";
 import IconSolid from "~icons/devicon/solidjs";
 import IconTailwind from "~icons/devicon/tailwindcss";
 import IconTS from "~icons/devicon/typescript";
+import IconNixPacks from "~icons/noto/package";
 import { useTabContext } from "./tabs";
 
 interface ProjectProps {
@@ -50,9 +54,19 @@ export default function Project(props: ProjectProps) {
 	const Badges = () => (
 		<Show when={props.badges}>
 			<span class="inline-flex flex-wrap items-center gap-1">
+				<Show when={props.badges?.npm}>
+					<span class={`${badgeClass} badge-error`}>
+						<IconNPM class="size-4" /> npm
+					</span>
+				</Show>
 				<Show when={props.badges?.typescript}>
 					<span class={`${badgeClass} badge-info text-blue-700`}>
 						<IconTS class="size-4" /> TypeScript
+					</span>
+				</Show>
+				<Show when={props.badges?.tailwind}>
+					<span class={`${badgeClass} badge-info`}>
+						<IconTailwind class="size-4" /> Tailwind CSS
 					</span>
 				</Show>
 				<Show when={props.badges?.astro}>
@@ -70,14 +84,24 @@ export default function Project(props: ProjectProps) {
 						<IconJSX class="size-4" /> JSX
 					</span>
 				</Show>
-				<Show when={props.badges?.tailwind}>
-					<span class={`${badgeClass} badge-info`}>
-						<IconTailwind class="size-4" /> Tailwind
-					</span>
-				</Show>
 				<Show when={props.badges?.python}>
 					<span class={`${badgeClass} badge-warning`}>
 						<IconPython class="size-4" /> Python
+					</span>
+				</Show>
+				<Show when={props.badges?.nixpacks}>
+					<span class={`${badgeClass} badge-warning`}>
+						<IconNixPacks class="size-4" /> Nixpacks
+					</span>
+				</Show>
+				<Show when={props.badges?.docker}>
+					<span class={`${badgeClass} badge-info text-blue-700`}>
+						<IconDocker class="size-4" /> Docker
+					</span>
+				</Show>
+				<Show when={props.badges?.ci}>
+					<span class={`${badgeClass} badge-info text-blue-700`}>
+						<IconCI class="size-4" /> GitHub Actions
 					</span>
 				</Show>
 			</span>

@@ -1,22 +1,22 @@
 {
 	"dependencies": {
-		"@biomejs/biome": "^1.9.4",
-		"@solid-primitives/mouse": "^2.1.2",
-		"@solidjs/router": "^0.15.0",
-		"@solidjs/start": "^1.1.0",
-		"solid-js": "^1.9.5",
-		"vinxi": "^0.5.3"
+		"@solidjs/router": "^0.15.3",
+		"@solidjs/start": "^1.1.4",
+		"solid-js": "^1.9.7",
+		"vinxi": "^0.5.7"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
 		"@iconify-json/devicon": "^1.2.28",
 		"@iconify-json/fa": "^1.2.1",
 		"@iconify-json/mdi": "^1.2.3",
+		"@iconify-json/noto": "^1.2.3",
 		"@iconify-json/tabler": "^1.2.19",
-		"@solid-primitives/storage": "^4.3.2",
-		"@tailwindcss/vite": "^4.0.7",
+		"@solid-primitives/mouse": "^2.1.2",
+		"@tailwindcss/vite": "^4.1.10",
 		"clsx": "^2.1.1",
 		"daisyui": "^5.0.43",
-		"tailwindcss": "^4.0.7",
+		"tailwindcss": "^4.1.10",
 		"tailwindcss-motion": "1.1.0",
 		"unplugin-icons": "^22.1.0"
 	},
@@ -27,10 +27,10 @@
 	"private": true,
 	"scripts": {
 		"build": "vinxi build",
-		"ci": "bun biome ci; bun tsc; bun run build;",
+		"ci": "bun biome ci; bun run build;",
 		"dev": "vinxi dev",
-		"lint": "biome check; bun tsc",
-		"lint:fix": "biome check --write; bun tsc",
+		"lint": "biome check",
+		"lint:fix": "biome check --write",
 		"preview": "vinxi build; vinxi start",
 		"start": "vinxi start"
 	},

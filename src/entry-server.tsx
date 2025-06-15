@@ -1,6 +1,6 @@
 // @refresh reload
 import { StartServer, createHandler } from "@solidjs/start/server";
-import { DEFAULT_APP_THEME } from "./components/theme";
+import { DEFAULT_APP_THEME, PERSISTENCE_OPTIONS } from "./components/theme";
 
 export const LIVE_URL = "https://ttg.xtreat.dev";
 
@@ -76,9 +76,15 @@ export default createHandler(() => (
 						rel="apple-touch-icon"
 						sizes="180x180"
 					/>
+					<script
+						innerText={`
+						const theme = localStorage.getItem(${PERSISTENCE_OPTIONS.name});
+						if(theme)
+							document.documentElement.dataset.theme = theme;
+						`}
+					/>
 					{assets}
 				</head>
-
 				<body>
 					<div id="app">{children}</div>
 					{scripts}
