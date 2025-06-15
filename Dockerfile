@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.7
 
 # node.js
 ARG NODE_VERSION=20
@@ -32,7 +32,7 @@ WORKDIR /app
 COPY bun.lock* package.json ./
 
 RUN --mount=type=cache,target=/root/.bun \
-    bun install
+    bun install --frozen-lockfile
 
 COPY . .
 

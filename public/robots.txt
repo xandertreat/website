@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /*?*
+Crawl-delay: 10
+Sitemap: https://xtreat.dev/sitemap.xml
