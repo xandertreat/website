@@ -1,0 +1,36 @@
+.git
+.gitignore
+.gitattributes
+.vscode
+*.patch
+*.diff
+
+# --- Local environment & secrets ---
+.env
+.env.*         # .env.production, .env.local, etc.
+*.pem
+*.key
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.swp
+*.swo
+
+# --- Dependency & build artifacts (copied or rebuilt inside image) ---
+node_modules
+bun.lockb.backup*
+.bun
+dist
+build
+coverage
+*.log
+
+# --- Tests, docs, misc you don’t deploy ---
+tests
+__tests__
+spec
+docs
+examples

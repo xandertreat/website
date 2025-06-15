@@ -12,6 +12,7 @@
 		"paths": {
 			"~/*": ["./src/*"]
 		},
+		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext",
 		"types": ["vinxi/types/client", "node", "unplugin-icons/types/solid"]

@@ -42,14 +42,15 @@ const AppThemeSwitcher: Component<
 	JSX.ButtonHTMLAttributes<HTMLButtonElement>
 > = (props) => {
 	const [appTheme, setAppTheme] = createSignal<AppTheme>(DEFAULT_APP_THEME);
-	
-	onMount(() => {
-		const stored = localStorage.getItem(PERSISTENCE_OPTIONS.name)
-		if (stored)
-			setAppTheme(stored as AppTheme)
 
-		createEffect(() => localStorage.setItem(PERSISTENCE_OPTIONS.name, appTheme()))
-	})
+	onMount(() => {
+		const stored = localStorage.getItem(PERSISTENCE_OPTIONS.name);
+		if (stored) setAppTheme(stored as AppTheme);
+
+		createEffect(() =>
+			localStorage.setItem(PERSISTENCE_OPTIONS.name, appTheme()),
+		);
+	});
 
 	let transitioningTheme = false;
 	createEffect(() => {
