@@ -4,7 +4,7 @@ import projects from "~/data/projects";
 
 export default function Projects() {
 	return (
-		<div class="flex flex-col items-center justify-center gap-5 p-1">
+		<div class="inline-flex flex-col items-center justify-center gap-5 p-1">
 			<For each={projects}>
 				{(project, idx) => (
 					<Project

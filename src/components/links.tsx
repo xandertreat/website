@@ -22,7 +22,7 @@ export default function Links(props: { class?: string }) {
 
 		return (
 			<A
-				class={`tooltip tooltip-info motion-blur-in-xs motion-opacity-in-0 motion-duration-500 motion-preset-slide-down motion-ease-in-out group *:group-hover:-translate-y-0.25 relative isolate z-50 size-7 select-none transition-[filter] hd:*:grayscale *:transition-[translate,filter] *:duration-200 hd:*:group-hover:grayscale-0 ${delays[props.delay ?? 0]}`}
+				class={`tooltip tooltip-info motion-blur-in-xs motion-opacity-in-0 motion-duration-500 motion-preset-slide-down motion-ease-in-out group *:group-hover:-translate-y-0.25 relative isolate z-50 size-6 select-none transition-[filter] hd:*:grayscale *:transition-[translate,filter] *:duration-200 hd:*:group-hover:grayscale-0 ${delays[props.delay ?? 0]}`}
 				data-tip={props.tip}
 				draggable={false}
 				href={String(props.to)}
@@ -34,9 +34,7 @@ export default function Links(props: { class?: string }) {
 		);
 	}
 	return (
-		<span
-			class={`inline-flex items-center justify-between gap-2.5 ${props.class}`}
-		>
+		<span class={` items-center justify-between gap-2.5 ${props.class}`}>
 			<Link delay={1000} tip="GitHub" to={links.github}>
 				<GitHubIcon class="size-full not-light:text-purple-500 text-purple-700" />
 			</Link>

@@ -1,12 +1,13 @@
 export default function About() {
 	return (
-		<article class="flex min-h-[12rem] flex-col gap-4 text-pretty text-sm leading-relaxed lg:text-base">
-			<section class="space-y-2">
-				<h2 class="font-medium text-lg lg:text-xl">Welcome</h2>
+		<article class="inline-flex min-h-[12rem] flex-col items-center gap-4 text-pretty text-sm leading-relaxed lg:text-base">
+			<section class="space-y-2 lg:w-5/6">
 				<p>
-					I'm Xander Treat, a recent ASU graduate in Software Engineering.
+					Hey there! I'm Xander Treat, a recent ASU graduate in Software
+					Engineering.
 					<br /> My passion lies in creating intuitive and performant web
-					experiences.
+					experiences that make people's lives easier and increase productivity
+					for less.
 				</p>
 			</section>
 			<section class="space-y-2">

@@ -86,11 +86,11 @@ export default function Project(props: ProjectProps) {
 
 	const Details = () => (
 		<>
-			<h2 class="inline-flex items-baseline justify-center gap-1.5 text-center font-semibold text-xl transition-colors duration-150 ease-in-out group-hover:text-info">
+			<h2 class="inline-flex flex-wrap items-baseline gap-1.5 text-nowrap text-center font-semibold text-xl transition-colors duration-150 ease-in-out group-hover:text-info">
 				{props.title}
 				<Show when={props.url}>
 					<a
-						class="link lg:link-hover -mt-1.5 inline-flex w-min font-semibold text-xs opacity-60 "
+						class="link lg:link-hover -mt-1.5 inline-flex w-min font-semibold text-xs opacity-60"
 						href={props.url}
 						onClick={(e) => e.stopPropagation()}
 					>
@@ -119,7 +119,7 @@ export default function Project(props: ProjectProps) {
 
 	return (
 		<button
-			class="hover:-translate-y-[2%] w-full cursor-pointer transition duration-150 ease-in-out lg:grayscale lg:hover:grayscale-0"
+			class="hover:-translate-y-[1%] w-full cursor-pointer transition duration-150 ease-in-out lg:grayscale lg:hover:grayscale-0"
 			onClick={() => {
 				if (props.url) {
 					const a = document.createElement("a");

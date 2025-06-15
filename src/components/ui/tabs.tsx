@@ -119,7 +119,7 @@ function Tabs(props: { children: JSX.Element }) {
 			}}
 		>
 			<nav class="mx-6 inline-flex gap-3">{props.children}</nav>
-			<div class="fhd:w-[33vw] hd:w-[44vw] w-[66vw] lg:mt-3">
+			<div class="mx-2 inline-flex w-full items-center justify-center overflow-scroll px-2 lg:mt-3">
 				{currentTabContent()}
 			</div>
 		</TabsContext.Provider>
