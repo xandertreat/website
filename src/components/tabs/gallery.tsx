@@ -1,7 +1,3 @@
 export default function Gallery() {
-	return (
-		<p class="font-extralight text-neutral opacity-90">
-			pictures coming soon...
-		</p>
-	);
+	return <p class="font-extralight opacity-60">pictures coming soon...</p>;
 }
