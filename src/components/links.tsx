@@ -22,6 +22,7 @@ export default function Links(props: { class?: string }) {
 
 		return (
 			<A
+				aria-label={props.tip}
 				class={`tooltip tooltip-info motion-blur-in-xs motion-opacity-in-0 motion-duration-500 motion-preset-slide-down motion-ease-in-out group *:group-hover:-translate-y-0.25 relative isolate z-50 size-6 select-none transition-[filter] hd:*:grayscale *:transition-[translate,filter] *:duration-200 hd:*:group-hover:grayscale-0 ${delays[props.delay ?? 0]}`}
 				data-tip={props.tip}
 				draggable={false}
