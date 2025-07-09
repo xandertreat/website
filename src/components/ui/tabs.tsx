@@ -34,15 +34,16 @@ function Tab(props: {
 			<a
 				aria-controls={props.to}
 				aria-selected={open()}
-				class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat pb-0.5 transition-all duration-200 hover:bg-size-[90%_1px]"
+				class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat pb-0.5 transition-all duration-200"
 				classList={{
 					'bg-size-[90%_1px] from-info to-info text-info': open(),
-					'from-info/50 to-info/50 hover:text-info/50 active:from-info active:to-info active:hover:text-info':
+					'from-info/50 to-info/50 hover:bg-size-[90%_1px] hover:text-info/50 active:from-info active:to-info active:hover:text-info':
 						!open(),
 				}}
 				href={`#${props.to}`}
+				id={`tab-${props.to}`}
 				role="tab"
-				tabIndex={open() ? 0 : -1}
+				tabIndex="0"
 				target="_self"
 			>
 				<span class="inline-flex items-center justify-center gap-0.5 px-1 py-0.5 font-extralight">
@@ -63,6 +64,7 @@ export function TabContent(props: {
 	return (
 		<TabContext.Provider value={{ open }}>
 			<section
+				aria-labelledby={`tab-${props.id}`}
 				class="mx-2 w-full items-center justify-center overflow-scroll px-2 lg:mt-3"
 				classList={{
 					'inline-flex': open(),
@@ -93,7 +95,9 @@ export default function Tabs(props: {
 	tabs: string | string[];
 	children: JSX.Element;
 }) {
-	const tabArray = Array.isArray(props.tabs) ? props.tabs : [props.tabs];
+	const tabArray = Array.isArray(props.tabs)
+		? props.tabs.filter((tab) => tab.toLowerCase().trim())
+		: [props.tabs];
 	const [currentTab, setCurrentTab] = createSignal(tabArray[0]);
 	const navigate = useNavigate();
 
@@ -111,7 +115,29 @@ export default function Tabs(props: {
 			}}
 		>
 			<nav class="mr-5 ml-8 inline">
-				<ul class="inline-flex gap-3" role="tablist">
+				<ul
+					class="inline-flex gap-3"
+					onKeyDown={(e) => {
+						if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+							e.preventDefault();
+							const index = tabArray.indexOf(currentTab());
+							const nextIndex = e.key === 'ArrowLeft' ? index - 1 : index + 1;
+							if (nextIndex >= 0 && nextIndex < tabArray.length) {
+								setCurrentTab(tabArray[nextIndex]);
+								navigate(`#${tabArray[nextIndex]}`);
+							}
+						} else if (e.key === 'Home') {
+							e.preventDefault();
+							setCurrentTab(tabArray[0]);
+							navigate(`#${tabArray[0]}`);
+						} else if (e.key === 'End') {
+							e.preventDefault();
+							setCurrentTab(tabArray[tabArray.length - 1]);
+							navigate(`#${tabArray[tabArray.length - 1]}`);
+						}
+					}}
+					role="tablist"
+				>
 					<For each={tabArray}>
 						{(id) => (
 							<TabContext.Provider value={{ open: () => currentTab() === id }}>
