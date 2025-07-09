@@ -1,6 +1,6 @@
-import { For } from "solid-js";
-import Project from "~/components/ui/project";
-import projects from "~/data/projects";
+import { For } from 'solid-js';
+import Project from '~/components/ui/project';
+import projects from '~/data/projects';
 
 export default function Projects() {
 	return (

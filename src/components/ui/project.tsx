@@ -1,20 +1,20 @@
 import {
 	createPositionToElement,
 	useMousePosition,
-} from "@solid-primitives/mouse";
-import { type JSX, Show, createEffect, createSignal } from "solid-js";
-import type { Badges } from "~/data/projects";
-import IconAstro from "~icons/devicon/astro";
-import IconDocker from "~icons/devicon/docker";
-import IconCI from "~icons/devicon/githubactions";
-import IconNPM from "~icons/devicon/npm";
-import IconPython from "~icons/devicon/python";
-import IconJSX from "~icons/devicon/react";
-import IconSolid from "~icons/devicon/solidjs";
-import IconTailwind from "~icons/devicon/tailwindcss";
-import IconTS from "~icons/devicon/typescript";
-import IconNixPacks from "~icons/noto/package";
-import { useTabContext } from "./tabs";
+} from '@solid-primitives/mouse';
+import { type JSX, Show, createEffect, createSignal } from 'solid-js';
+import type { Badges } from '~/data/projects';
+import IconAstro from '~icons/devicon/astro';
+import IconDocker from '~icons/devicon/docker';
+import IconCI from '~icons/devicon/githubactions';
+import IconNPM from '~icons/devicon/npm';
+import IconPython from '~icons/devicon/python';
+import IconJSX from '~icons/devicon/react';
+import IconSolid from '~icons/devicon/solidjs';
+import IconTailwind from '~icons/devicon/tailwindcss';
+import IconTS from '~icons/devicon/typescript';
+import IconNixPacks from '~icons/noto/package';
+import { useTabContext } from './tabs';
 
 interface ProjectProps {
 	url?: string;
@@ -35,21 +35,21 @@ export default function Project(props: ProjectProps) {
 	});
 
 	const delays: Record<number, string> = {
-		0: "",
-		200: "motion-delay-200",
-		400: "motion-delay-400",
-		600: "motion-delay-600",
-		800: "motion-delay-800",
-		1000: "motion-delay-1000",
-		1200: "motion-delay-1200",
-		1400: "motion-delay-1400",
-		1600: "motion-delay-1600",
-		1800: "motion-delay-1800",
-		2000: "motion-delay-2000",
+		0: '',
+		200: 'motion-delay-200',
+		400: 'motion-delay-400',
+		600: 'motion-delay-600',
+		800: 'motion-delay-800',
+		1000: 'motion-delay-1000',
+		1200: 'motion-delay-1200',
+		1400: 'motion-delay-1400',
+		1600: 'motion-delay-1600',
+		1800: 'motion-delay-1800',
+		2000: 'motion-delay-2000',
 	};
 
 	const badgeClass =
-		"badge badge-xs py-2.5 badge-soft badge-outline inline-flex items-center gap-1";
+		'badge badge-xs py-2.5 badge-soft badge-outline inline-flex items-center gap-1';
 
 	const Badges = () => (
 		<Show when={props.badges}>
@@ -120,7 +120,7 @@ export default function Project(props: ProjectProps) {
 					>
 						(
 						<p class="max-w-[10rem] overflow-hidden text-ellipsis whitespace-nowrap">
-							{props.url?.slice(props.url.indexOf("//") + 2)}
+							{props.url?.slice(props.url.indexOf('//') + 2)}
 						</p>
 						)
 					</a>
@@ -146,21 +146,21 @@ export default function Project(props: ProjectProps) {
 			class="hover:-translate-y-[1%] w-full cursor-pointer transition duration-150 ease-in-out lg:grayscale lg:hover:grayscale-0"
 			onClick={() => {
 				if (props.url) {
-					const a = document.createElement("a");
+					const a = document.createElement('a');
 					a.href = props.url;
-					a.rel = "noreferrer";
-					a.target = "_blank";
+					a.rel = 'noreferrer';
+					a.target = '_blank';
 					a.click();
 					a.remove();
 				}
 			}}
-			onMouseEnter={(e) => e.target.classList.remove("lg:grayscale")}
+			onMouseEnter={(e) => e.target.classList.remove('lg:grayscale')}
 			type="button"
 		>
 			<span
 				class={`group motion-duration-300 motion-ease-in-out relative isolate ${delays[props.delay ?? 0]} flex flex-col items-start justify-start gap-1.5 overflow-hidden rounded-md border border-neutral/10 bg-neutral/5 px-3 pt-1 pb-2 text-start shadow-xs backdrop-blur-lg transition-[border-color,box-shadow] duration-150 ease-in-out hover:border-info hover:shadow-sm `}
 				classList={{
-					"max-lg:motion-preset-slide-down lg:motion-preset-slide-right-sm motion-blur-in":
+					'max-lg:motion-preset-slide-down lg:motion-preset-slide-right-sm motion-blur-in':
 						shouldAnimate(),
 				}}
 				ref={container}

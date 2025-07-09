@@ -6,15 +6,15 @@ import {
 	createEffect,
 	createSignal,
 	onMount,
-} from "solid-js";
-import IconThemeLightDark from "~icons/mdi/theme-light-dark";
-import IconMoonFilled from "~icons/tabler/moon-filled";
-import IconSunFilled from "~icons/tabler/sun-filled";
+} from 'solid-js';
+import IconThemeLightDark from '~icons/mdi/theme-light-dark';
+import IconMoonFilled from '~icons/tabler/moon-filled';
+import IconSunFilled from '~icons/tabler/sun-filled';
 
-type AppTheme = "system" | "light" | "dark";
-export const DEFAULT_APP_THEME: AppTheme = "system";
+type AppTheme = 'system' | 'light' | 'dark';
+export const DEFAULT_APP_THEME: AppTheme = 'system';
 export const PERSISTENCE_OPTIONS = {
-	name: "theme",
+	name: 'theme',
 };
 
 const APP_THEME_TRANSITION_DURATION = 200;
@@ -36,7 +36,7 @@ const APP_THEME_TRANSITION_STYLES = `
 }
 `;
 
-const cycle = ["system", "light", "dark"] as const;
+const cycle = ['system', 'light', 'dark'] as const;
 
 const AppThemeSwitcher: Component<
 	JSX.ButtonHTMLAttributes<HTMLButtonElement>
@@ -61,7 +61,7 @@ const AppThemeSwitcher: Component<
 
 		try {
 			transitioningTheme = true;
-			const style = document.createElement("style");
+			const style = document.createElement('style');
 			style.textContent = APP_THEME_TRANSITION_STYLES;
 
 			document.head.appendChild(style);
@@ -69,7 +69,7 @@ const AppThemeSwitcher: Component<
 
 			setTimeout(() => style.remove(), APP_THEME_TRANSITION_DURATION);
 		} catch (error) {
-			console.error("Failed to change theme:", error);
+			console.error('Failed to change theme:', error);
 			document.documentElement.dataset.theme = appTheme();
 		} finally {
 			transitioningTheme = false;
@@ -87,13 +87,13 @@ const AppThemeSwitcher: Component<
 			type="button"
 		>
 			<Switch>
-				<Match when={appTheme() === "system"}>
+				<Match when={appTheme() === 'system'}>
 					<IconThemeLightDark class="motion-duration-200 motion-rotate-in-[-135deg] motion-opacity-in-0 motion-ease-in-out size-full" />
 				</Match>
-				<Match when={appTheme() === "light"}>
+				<Match when={appTheme() === 'light'}>
 					<IconSunFilled class="motion-duration-200 motion-rotate-in-[-135deg] motion-opacity-in-0 motion-ease-in-out size-full text-amber-400" />
 				</Match>
-				<Match when={appTheme() === "dark"}>
+				<Match when={appTheme() === 'dark'}>
 					<IconMoonFilled class="motion-duration-200 motion-rotate-in-[-135deg] motion-opacity-in-0 motion-ease-in-out size-full" />
 				</Match>
 			</Switch>

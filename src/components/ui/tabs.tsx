@@ -1,35 +1,15 @@
-import { A, useLocation } from "@solidjs/router";
+import { useLocation, useNavigate } from '@solidjs/router';
 import {
 	type Accessor,
+	For,
 	type JSX,
-	type Setter,
 	createContext,
 	createEffect,
-	createMemo,
 	createSignal,
 	onMount,
 	useContext,
-} from "solid-js";
-import { type SetStoreFunction, createStore } from "solid-js/store";
-
-interface TabContainer {
-	[id: string]: JSX.Element;
-}
-
-interface TabsContext {
-	tabs: TabContainer;
-	setTabs: SetStoreFunction<TabContainer>;
-	currentTab: Accessor<string>;
-	setCurrentTab: Setter<string>;
-}
-const TabsContext = createContext<TabsContext>();
-
-function useTabsContext() {
-	const ctx = useContext(TabsContext);
-	if (!ctx)
-		throw new Error("TabContext must be used within a <TabContext.Provider />");
-	return ctx;
-}
+} from 'solid-js';
+import Links from '../links';
 
 interface TabContext {
 	open: Accessor<boolean>;
@@ -39,94 +19,110 @@ const TabContext = createContext<TabContext>();
 export function useTabContext() {
 	const ctx = useContext(TabContext);
 	if (!ctx)
-		throw new Error("TabContext must be used within a <TabContext.Provider />");
+		throw new Error('TabContext must be used within a <TabContext.Provider />');
 	return ctx;
 }
 
-export function Tab(props: {
-	id: string;
+function Tab(props: {
+	to: string;
 	children?: JSX.Element;
 }) {
-	const { currentTab, setCurrentTab } = useTabsContext();
-	const isCurrentTab = createMemo(() => props.id === currentTab());
+	const { open } = useTabContext();
 
 	return (
-		<TabContext.Provider value={{ open: () => currentTab() === props.id }}>
-			<A
-				class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat transition-all duration-200 hover:bg-size-[100%_1px] "
+		<li role="presentation">
+			<a
+				aria-controls={props.to}
+				aria-selected={open()}
+				class="cursor-pointer bg-bottom bg-gradient-to-r bg-size-[0%_1px] bg-no-repeat pb-0.5 transition-all duration-200 hover:bg-size-[90%_1px]"
 				classList={{
-					"from-info/50 to-info/50 hover:text-info/50 active:from-info active:to-info active:hover:text-info":
-						!isCurrentTab(),
-					"bg-size-[100%_1px] from-info to-info text-info": isCurrentTab(),
+					'bg-size-[90%_1px] from-info to-info text-info': open(),
+					'from-info/50 to-info/50 hover:text-info/50 active:from-info active:to-info active:hover:text-info':
+						!open(),
 				}}
-				href={`#${props.id}`}
-				onClick={() => setCurrentTab(props.id)}
-				type="button"
+				href={`#${props.to}`}
+				role="tab"
+				tabIndex={open() ? 0 : -1}
+				target="_self"
 			>
 				<span class="inline-flex items-center justify-center gap-0.5 px-1 py-0.5 font-extralight">
-					{props.children}
-					<p>{props.id}</p>
+					{props.children ?? <p class="text-pretty">{props.to}</p>}
 				</span>
-			</A>
+			</a>
+		</li>
+	);
+}
+
+export function TabContent(props: {
+	id: string;
+	children: JSX.Element;
+}) {
+	const { currentTab } = useTabsContext();
+	const open = () => currentTab() === props.id;
+
+	return (
+		<TabContext.Provider value={{ open }}>
+			<section
+				class="mx-2 w-full items-center justify-center overflow-scroll px-2 lg:mt-3"
+				classList={{
+					'inline-flex': open(),
+					hidden: !open(),
+				}}
+				id={props.id}
+				role="tabpanel"
+			>
+				{props.children}
+			</section>
 		</TabContext.Provider>
 	);
 }
 
-function Content(props: {
-	for: string;
-	children?: JSX.Element;
-}) {
-	const { setTabs, currentTab } = useTabsContext();
+interface TabsContext {
+	currentTab: Accessor<string>;
+}
+const TabsContext = createContext<TabsContext>();
 
-	onMount(() =>
-		setTabs(props.for, () => (
-			<TabContext.Provider value={{ open: () => currentTab() === props.for }}>
-				{props.children}
-			</TabContext.Provider>
-		)),
-	);
-
-	return <></>;
+function useTabsContext() {
+	const ctx = useContext(TabsContext);
+	if (!ctx)
+		throw new Error('TabContext must be used within a <TabContext.Provider />');
+	return ctx;
 }
 
-function Tabs(props: { children: JSX.Element }) {
-	const [tabs, setTabs] = createStore<TabContainer>();
-	const [currentTab, setCurrentTab] = createSignal("");
-	const currentTabContent = createMemo(() => tabs?.[currentTab()]);
+export default function Tabs(props: {
+	tabs: string | string[];
+	children: JSX.Element;
+}) {
+	const tabArray = Array.isArray(props.tabs) ? props.tabs : [props.tabs];
+	const [currentTab, setCurrentTab] = createSignal(tabArray[0]);
+	const navigate = useNavigate();
 
-	// init
-	createEffect(() => {
-		if (!currentTab()) {
-			const k = Object.keys(tabs).at(0);
-			if (k) setCurrentTab(k);
-		}
-	});
+	onMount(() => navigate(`#${tabArray[0]}`, { replace: true }));
 
-	// sync with URL
 	createEffect(() => {
-		const hash = useLocation().hash;
-		const possibleTab = hash.slice(hash.indexOf("#") + 1);
-		if (Object.keys(tabs).includes(possibleTab)) setCurrentTab(possibleTab);
+		const hash = useLocation().hash.slice(1);
+		if (tabArray.includes(hash)) setCurrentTab(hash);
 	});
 
 	return (
 		<TabsContext.Provider
 			value={{
-				tabs,
-				setTabs,
 				currentTab,
-				setCurrentTab,
 			}}
 		>
-			<nav class="mx-6 inline-flex gap-3">{props.children}</nav>
-			<div class="mx-2 inline-flex w-full items-center justify-center overflow-scroll px-2 lg:mt-3">
-				{currentTabContent()}
-			</div>
+			<nav class="mr-5 ml-8 inline">
+				<ul class="inline-flex gap-3" role="tablist">
+					<For each={tabArray}>
+						{(id) => (
+							<TabContext.Provider value={{ open: () => currentTab() === id }}>
+								<Tab to={id} />
+							</TabContext.Provider>
+						)}
+					</For>
+				</ul>
+			</nav>
+			<Links class="hidden lg:inline-flex" />
+			{props.children}
 		</TabsContext.Provider>
 	);
 }
-
-export default Object.assign(Tabs, {
-	Tab,
-	Content,
-});

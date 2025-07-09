@@ -1,9 +1,9 @@
 // @refresh reload
-import { StartServer, createHandler } from "@solidjs/start/server";
-import { DEFAULT_APP_THEME, PERSISTENCE_OPTIONS } from "~/components/theme";
+import { StartServer, createHandler } from '@solidjs/start/server';
+import { DEFAULT_APP_THEME, PERSISTENCE_OPTIONS } from '~/components/theme';
 
 //TODO: this
-export const LIVE_URL = import.meta.env.PUBLIC_SITE_URL ?? "https://xtreat.dev";
+export const LIVE_URL = import.meta.env.PUBLIC_SITE_URL ?? 'https://xtreat.dev';
 
 export default createHandler(() => (
 	<StartServer

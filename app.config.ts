@@ -1,9 +1,9 @@
-import { defineConfig } from "@solidjs/start/config";
-import tailwindcss from "@tailwindcss/vite";
-import unpluginicons from "unplugin-icons/vite";
+import { defineConfig } from '@solidjs/start/config';
+import tailwindcss from '@tailwindcss/vite';
+import unpluginicons from 'unplugin-icons/vite';
 
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -17,18 +17,18 @@ export default defineConfig({
 		plugins: [
 			tailwindcss(),
 			unpluginicons({
-				defaultClass: "size-full",
-				compiler: "solid",
+				defaultClass: 'size-full',
+				compiler: 'solid',
 				autoInstall: true,
 			}),
 		],
 		server: {
-			allowedHosts: ["127.0.0.1", "localhost", "0.0.0.0"],
+			allowedHosts: ['127.0.0.1', 'localhost', '0.0.0.0'],
 		},
 		resolve: {
 			alias: {
 				// "~/*" → "./src/*"
-				"~": path.resolve(__dirname, "src"),
+				'~': path.resolve(__dirname, 'src'),
 			},
 		},
 	},

@@ -1,6 +1,6 @@
-const gh_user = "xandertreat";
-const npm_user = "xtreat";
-const li_user = "xandertreat";
+const gh_user = 'xandertreat';
+const npm_user = 'xtreat';
+const li_user = 'xandertreat';
 
 export default {
 	github: `https://github.com/${gh_user}`,
