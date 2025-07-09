@@ -9,6 +9,8 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig({
 	server: {
+		node: true,
+		preset: 'node-server',
 		prerender: {
 			crawlLinks: true,
 		},
